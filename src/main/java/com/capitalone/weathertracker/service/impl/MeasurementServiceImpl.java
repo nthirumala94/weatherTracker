@@ -40,7 +40,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
 		        Map.Entry<LocalDateTime, Metrics> entry = iterator.next();
-		        System.out.println(entry.getKey());
+		        System.out.println("Entry Key in loop: " + entry.getKey());
 		        if(entry.getKey().getYear() == localTimestamp.getYear() &&
 		        entry.getKey().getMonth() == localTimestamp.getMonth() &&
 		        entry.getKey().getDayOfMonth() == localTimestamp.getDayOfMonth()
