@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import com.capitalone.weathertracker.model.Metrics;
 import java.lang.Exception;
+import org.apache.commons.lang3.StringUtils;
 
 /*
   TODO: Implement the endpoints in the ATs.
