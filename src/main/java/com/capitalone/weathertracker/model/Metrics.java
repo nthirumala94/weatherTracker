@@ -1,4 +1,4 @@
-package com.capitalone.model;
+package com.capitalone.weathertracker.model;
 
 public class Metrics {
     public float temperature;
