@@ -16,7 +16,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     }
     
     @Override
-    private ArrayList<Measurements> getMeasurement(LocalDateTime timestamp) {
+    private ArrayList<Measurements> getMeasurement(String timestamp) {
         List<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
 			Metrics metricData = weatherData.get(timestamp);
