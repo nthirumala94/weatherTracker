@@ -35,11 +35,12 @@ public class MeasurementServiceImpl implements MeasurementService {
 			    result.add(m);
 			}
 		} else {
-		    System.out.println("Entering Else, weatherData size" + weatherData.size);
+		    System.out.println("Entering Else, weatherData size" + weatherData.size());
 		    Iterator<Map.Entry<LocalDateTime, Metrics>> iterator = weatherData.entrySet().iterator();
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
 		        Map.Entry<LocalDateTime, Metrics> entry = iterator.next();
+		        System.out.println(entry.getKey());
 		        if(entry.getKey().getYear() == localTimestamp.getYear() &&
 		        entry.getKey().getMonth() == localTimestamp.getMonth() &&
 		        entry.getKey().getDayOfMonth() == localTimestamp.getDayOfMonth()
