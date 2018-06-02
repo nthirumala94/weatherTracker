@@ -7,6 +7,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Context;
 import java.net.URI;
 import com.capitalone.weathertracker.service.MeasurementService;
 import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
@@ -29,6 +31,9 @@ public class RootResource {
     private static final Response NOT_IMPLEMENTED = Response.status(501).build();
     private MeasurementService measurementService = new MeasurementServiceImpl();
     private final String SERVER_URL = "http://localhost:8000";
+    
+    @Context
+    private UriInfo uriInfo;
     // dummy handler so you can tell if the server is running
     // e.g. `curl localhost:8000`
     @GET
@@ -60,7 +65,7 @@ public class RootResource {
         */
         // UriBuilder builder = UriBuilder.path("/measurements/" + timeStamp);
         
-        UriBuilder builder = UriBuilder
+        UriBuilder builder = uriInfo
         .getAbsolutePathBuilder()
         .fromPath("http://localhost:8000" + "/measurements")
         .path(timeStamp.toString());
