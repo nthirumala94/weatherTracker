@@ -10,6 +10,7 @@ import javax.ws.rs.core.UriBuilder;
 import com.capitalone.weathertracker.service.MeasurementService;
 import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import com.capitalone.weathertracker.model.Metrics;
 
 /*
@@ -38,7 +39,7 @@ public class RootResource {
     @POST @Path("/measurements")
     public Response createMeasurement(JsonNode measurement) {
         System.out.println("\n Here is the timeStamp: " + measurement.get("timestamp").asText() + "\n\n\n");
-        LocalDateTime timeStamp = LocalDateTime.parse(measurement.get("timestamp").asText());
+        LocalDateTime timeStamp = convertStringToLocalDate(measurement.get("timestamp").asText());
         Metrics metric = new Metrics(
             measurement.get("temperature").floatValue(),
             measurement.get("dewPoint").floatValue(),
