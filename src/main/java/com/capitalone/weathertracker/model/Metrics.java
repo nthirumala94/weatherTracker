@@ -37,9 +37,9 @@ public class Metrics {
 	@Override
 	public String toString() {
 	    return "Metrics { " +
-	        "temperature = " + this.temperature + " \" +
-	        "dewPoint = " + this.dewPoint + " \" +
-	        "precipation = " + this.precipation + " \" +
+	        "temperature = " + this.temperature +
+	        "dewPoint = " + this.dewPoint +
+	        "precipation = " + this.precipation +
 	        "}";
 	}
 }
