@@ -31,7 +31,7 @@ import com.capitalone.weathertracker.util.WeatherTrackerUtil;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RootResource {
     private static final Response NOT_IMPLEMENTED = Response.status(501).build();
-    private MeasurementService measurementService = new MeasurementServiceImpl();
+    private MeasurementService measurementService = MeasurementServiceImpl.getInstance();
     private final String SERVER_URL = "http://localhost:8000";
     
     @Context
