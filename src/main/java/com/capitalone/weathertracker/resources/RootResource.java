@@ -50,7 +50,6 @@ public class RootResource {
     public Response createMeasurement(JsonNode measurement) {
         UriBuilder builder = null;
         try {
-        System.out.println("\n Here is the timeStamp: " + measurement.get("timestamp").asText() + "\n\n\n");
         LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(measurement.get("timestamp").asText());
         
         if(!isRequestValid(measurement)) {
@@ -88,7 +87,6 @@ public class RootResource {
         // catch (Exception e) {
         //     e.printStackTrace();
         // }
-        System.out.println("Here is my path: " + Response.created(builder.build()).build());
         }
         catch (Exception e) {
             return Response.status(400).build();
