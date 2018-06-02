@@ -1,3 +1,4 @@
+@skip
 Feature: Update a measurement
   In order to correct the record of weather conditions
   I want to be able to update a measurement taken at a specific time
