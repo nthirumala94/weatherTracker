@@ -56,6 +56,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        }
 		    }
 		}
+		System.out.println(result.size());
         return result;
     }
 }
