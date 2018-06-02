@@ -46,6 +46,8 @@ public class RootResource {
     // features/01-measurements/01-add-measurement.feature
     @POST @Path("/measurements")
     public Response createMeasurement(JsonNode measurement) {
+        UriBuilder builder = null;
+        try {
         System.out.println("\n Here is the timeStamp: " + measurement.get("timestamp").asText() + "\n\n\n");
         LocalDateTime timeStamp = convertStringToLocalDate(measurement.get("timestamp").asText());
         Metrics metric = new Metrics(
@@ -65,7 +67,7 @@ public class RootResource {
         */
         // UriBuilder builder = UriBuilder.path("/measurements/" + timeStamp);
         
-        UriBuilder builder = uriInfo
+        builder = uriInfo
         .getAbsolutePathBuilder()
         .fromPath("http://localhost:8000/measurements")
         .path(timeStamp.toString());
@@ -80,6 +82,10 @@ public class RootResource {
         //     e.printStackTrace();
         // }
         System.out.println("Here is my path: " + Response.created(builder.build()).build());
+        }
+        catch (Exception e) {
+            return Response.BAD_REQUEST;
+        }
         return Response.created(builder.build()).build();
     }
 
