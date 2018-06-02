@@ -1,0 +1,5 @@
+com/capitalone/weathertracker/AppServer.class
+Measurements.class
+com/capitalone/weathertracker/resources/RootResource.class
+com/capitalone/weathertracker/annotations/PATCH.class
+com/capitalone/weathertracker/model/Metrics.class
