@@ -147,6 +147,7 @@ public class RootResource {
             "precipitation": 0
         }
         */
+        //Testing gitStuff
 
         return NOT_IMPLEMENTED;
     }
