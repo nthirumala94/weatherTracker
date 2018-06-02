@@ -58,7 +58,7 @@ public class RootResource {
         */
         // UriBuilder builder = UriBuilder.path("/measurements/" + timeStamp);
         UriBuilder builder = UriBuilder
-        .fromPath(SERVER_URL)
+        .path(SERVER_URL)
         .path("measurements")
         .path(timeStamp.toString());
         return Response.created(builder.build()).build();
