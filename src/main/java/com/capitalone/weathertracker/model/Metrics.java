@@ -36,6 +36,11 @@ public class Metrics {
 	
 	@Override
 	public String toString() {
-	    return "";
+	    String string = "Metrics { " +
+	        "temperature = " + this.temperature +
+	        "dewPoint = " + this.dewPoint +
+	        "precipation = " + this.precipation +
+	        "}";
+	    return string;
 	}
 }
