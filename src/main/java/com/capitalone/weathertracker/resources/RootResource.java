@@ -219,9 +219,19 @@ public class RootResource {
 		return dateTime;
     }
     
+    private boolean isFloatCheck(String str) {
+        try {
+            Float.parseFloat(str);
+        }
+        catch(Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
     private boolean isRequestValid(JsonNode measurement) {
-        return StringUtils.isNumericSpace(measurement.get("temperature").asText()) &&
-            StringUtils.isNumericSpace(measurement.get("dewPoint").asText()) &&
-            StringUtils.isNumericSpace(measurement.get("precipitation").asText());
+        return isFloatCheck(measurement.get("temperature").asText()) &&
+            isFloatCheck(measurement.get("dewPoint").asText()) &&
+            isFloatCheck(measurement.get("precipitation").asText());
     }
 }
