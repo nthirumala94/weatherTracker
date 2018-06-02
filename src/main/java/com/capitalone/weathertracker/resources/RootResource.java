@@ -79,7 +79,7 @@ public class RootResource {
         // catch (Exception e) {
         //     e.printStackTrace();
         // }
-        
+        System.out.println("Here is my path: " + Response.created(builder.build()).build());
         return Response.created(builder.build()).build();
     }
 
