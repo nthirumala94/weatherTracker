@@ -220,7 +220,7 @@ public class RootResource {
     }
     
     private boolean isRequestValid(JsonNode measurement) {
-        StringUtils.isNumericSpace(measurement.get("temperature").asText()) &&
+        return StringUtils.isNumericSpace(measurement.get("temperature").asText()) &&
             StringUtils.isNumericSpace(measurement.get("dewPoint").asText()) &&
             StringUtils.isNumericSpace(measurement.get("precipitation").asText());
     }
