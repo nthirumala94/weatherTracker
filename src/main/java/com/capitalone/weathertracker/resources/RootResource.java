@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
 import com.capitalone.weathertracker.service.MeasurementService;
 import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
 import java.time.LocalDateTime;
