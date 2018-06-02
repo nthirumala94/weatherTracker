@@ -4,6 +4,7 @@ import com.capitalone.weathertracker.service.MeasurementService;
 import java.time.LocalDateTime;
 import com.capitalone.weathertracker.model.*;
 import java.util.*;
+import com.capitalone.weathertracker.util.WeatherTrackerUtil;
 
 public class MeasurementServiceImpl implements MeasurementService {
     private Map<LocalDateTime, Metrics> weatherData = new HashMap<>();
@@ -19,11 +20,13 @@ public class MeasurementServiceImpl implements MeasurementService {
     private ArrayList<Measurements> getMeasurement(String timestamp) {
         List<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
-			Metrics metricData = weatherData.get(timestamp);
+            LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
+            
+			Metrics metricData = weatherData.get(dateTimestamp);
 			
 			if(metricData != null) {
 			    Measurements m = new Measurements(
-			        timestamp,
+			        dateTimestamp,
 			        metricData.getTemperature(),
 			        metricData.getDewPoint(),
 			        metricData.getPrecipation()
@@ -32,11 +35,12 @@ public class MeasurementServiceImpl implements MeasurementService {
 			}
 		} else {
 		    Iterator<Map.Entry<LocalDateTime, Metrics>> iterator = weatherData.entrySet().iterator();
+		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
 		        Map.Entry<LocalDateTime, Metrics> entry = iterator.next();
-		        if(entry.getKey().getYear() == timestamp.getYear() &&
-		        entry.getKey().getMonth() == timestamp.getMonth() &&
-		        entry.getKey().getDayOfMonth() == timestamp.getDayOfMonth()
+		        if(entry.getKey().getYear() == localTimestamp.getYear() &&
+		        entry.getKey().getMonth() == localTimestamp.getMonth() &&
+		        entry.getKey().getDayOfMonth() == localTimestamp.getDayOfMonth()
 		        ) {
 		            
 		            Measurements m = new Measurements(
