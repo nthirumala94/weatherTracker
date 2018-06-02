@@ -13,6 +13,7 @@ import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import com.capitalone.weathertracker.model.Metrics;
+import java.lang.Exception;
 
 /*
   TODO: Implement the endpoints in the ATs.
@@ -63,11 +64,15 @@ public class RootResource {
         // .fromPath(SERVER_URL)
         // .path("measurements")
         // .path(timeStamp.toString());
-        
+        try {
         UriBuilder builder = UriBuilder
         .fromUri(new URI(SERVER_URL))
         .path("measurements")
         .path(timeStamp.toString());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         
         return Response.created(builder.build()).build();
     }
