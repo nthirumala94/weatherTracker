@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import com.capitalone.weathertracker.model.Metrics;
 import java.lang.Exception;
 import org.apache.commons.lang3.StringUtils;
+import com.capitalone.weathertracker.util.WeatherTrackerUtil;
 
 /*
   TODO: Implement the endpoints in the ATs.
@@ -50,7 +51,7 @@ public class RootResource {
         UriBuilder builder = null;
         try {
         System.out.println("\n Here is the timeStamp: " + measurement.get("timestamp").asText() + "\n\n\n");
-        LocalDateTime timeStamp = convertStringToLocalDate(measurement.get("timestamp").asText());
+        LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(measurement.get("timestamp").asText());
         
         if(!isRequestValid(measurement)) {
             return Response.status(400).build();
@@ -98,6 +99,9 @@ public class RootResource {
     // features/01-measurements/02-get-measurement.feature
     @GET @Path("/measurements/{timestamp}")
     public Response getMeasurement(@PathParam("timestamp") String timestamp) {
+        
+        
+
         /* Example 1:
         timestamp := "2015-09-01T16:20:00.000Z"
 
@@ -213,11 +217,6 @@ public class RootResource {
         return NOT_IMPLEMENTED;
     }
     
-    private LocalDateTime convertStringToLocalDate(String dateTimeStr) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-		LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, formatter);
-		return dateTime;
-    }
     
     private boolean isFloatCheck(String str) {
         try {
