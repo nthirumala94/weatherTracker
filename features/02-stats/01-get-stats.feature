@@ -1,3 +1,4 @@
+@skip
 Feature: Get measurement statistics
   In order to understand trends of measurements
   I want to be able to get statistics over specified periods of time
