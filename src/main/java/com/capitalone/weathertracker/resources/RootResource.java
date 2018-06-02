@@ -34,7 +34,7 @@ public class RootResource {
     // features/01-measurements/01-add-measurement.feature
     @POST @Path("/measurements")
     public Response createMeasurement(JsonNode measurement) {
-        LocalDateTime timeStamp = LocalDateTime.parse(measurement.get("timestamp").asText));
+        LocalDateTime timeStamp = LocalDateTime.parse(measurement.get("timestamp").asText);
         Metrics metric = new Metrics(
             measurement.get("temperature").floatValue(),
             measurement.get("dewPoint").floatValue(),
