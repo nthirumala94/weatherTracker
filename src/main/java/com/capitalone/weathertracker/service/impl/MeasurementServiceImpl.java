@@ -10,7 +10,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
         weatherData.put(timestamp, metrics);
-        for(Map.Entry<LocalDateTime, Metrics> entry : weatherDate.entrySet()) {
+        for(Map.Entry<LocalDateTime, Metrics> entry : weatherData.entrySet()) {
             System.out.println("Key: " + entry.getKey() + " value: " + entry.getValue().convertToString());
         }
     }
