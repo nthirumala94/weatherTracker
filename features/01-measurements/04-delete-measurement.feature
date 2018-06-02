@@ -1,3 +1,4 @@
+@skip
 Feature: Delete a measurement
   In order to remove incorrect measurements
   I want to be able to delete a measurement taken at a specific time
