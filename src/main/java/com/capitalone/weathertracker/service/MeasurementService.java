@@ -1,3 +1,5 @@
+package com.capitalone.weathertracker.service;
+
 import java.time.LocalDateTime;
 import com.capitalone.weathertracker.model.*;
 
