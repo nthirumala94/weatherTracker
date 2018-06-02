@@ -1,0 +1,3 @@
+com/capitalone/weathertracker/AppServer.class
+com/capitalone/weathertracker/resources/RootResource.class
+com/capitalone/weathertracker/annotations/PATCH.class
