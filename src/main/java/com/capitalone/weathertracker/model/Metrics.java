@@ -34,7 +34,7 @@ public class Metrics {
 		this.precipation = precipation;
 	}
 	
-	@Override
+	
 	public String toString() {
 	    String string = "Metrics { " +
 	        "temperature = " + this.temperature +
