@@ -10,7 +10,7 @@ import javax.ws.rs.core.UriBuilder;
 import com.capitalone.weathertracker.service.MeasurementService;
 import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
 import java.time.LocalDateTime;
-com.capitalone.weathertracker.model.Metrics;
+import com.capitalone.weathertracker.model.Metrics;
 
 /*
   TODO: Implement the endpoints in the ATs.
