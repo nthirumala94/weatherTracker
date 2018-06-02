@@ -50,6 +50,11 @@ public class RootResource {
         try {
         System.out.println("\n Here is the timeStamp: " + measurement.get("timestamp").asText() + "\n\n\n");
         LocalDateTime timeStamp = convertStringToLocalDate(measurement.get("timestamp").asText());
+        
+        if(!isRequestValid(measurement)) {
+            return Response.status(400).build();
+        }
+        
         Metrics metric = new Metrics(
             measurement.get("temperature").floatValue(),
             measurement.get("dewPoint").floatValue(),
@@ -211,5 +216,11 @@ public class RootResource {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, formatter);
 		return dateTime;
+    }
+    
+    private boolean isRequestValid(JsonNode measurement) {
+        StringUtils.isNumericSpace(measurement.get("temperature").asText()) &&
+            StringUtils.isNumericSpace(measurement.get("dewPoint").asText()) &&
+            StringUtils.isNumericSpace(measurement.get("precipitation").asText());
     }
 }
