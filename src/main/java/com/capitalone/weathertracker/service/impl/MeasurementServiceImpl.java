@@ -12,7 +12,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     private MeasurementServiceImpl() {}
     
-    private Map<LocalDateTime, Metrics> weatherData = new HashMap<>();
+    private Map<LocalDateTime, Metrics> weatherData = new LinkedHashMap<>();
     
     public static MeasurementServiceImpl getInstance() {
       return measurementServiceImpl;
