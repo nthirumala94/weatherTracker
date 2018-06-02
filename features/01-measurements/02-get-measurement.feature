@@ -1,3 +1,4 @@
+@skip
 Feature: Get a measurement
   In order to learn what weather conditions were like at a specific time
   I want to be able to retrieve a measurement of several metrics at that time
