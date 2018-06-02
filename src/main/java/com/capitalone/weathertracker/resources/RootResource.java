@@ -133,7 +133,7 @@ public class RootResource {
         ]
         */
 
-        return Response.created().build();
+        return Response.status(200).build();
     }
 
     // features/01-measurements/03-update-measurement.feature
