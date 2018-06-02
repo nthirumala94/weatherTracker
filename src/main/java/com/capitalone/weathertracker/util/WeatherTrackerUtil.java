@@ -13,7 +13,7 @@ public class WeatherTrackerUtil {
     
     //2015-09-01T16:30:00.000Z
     public static String convertLocalDateToString(LocalDateTime timestamp) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
         String formatDateTime = timestamp.format(formatter);
         return formatDateTime;
     }
