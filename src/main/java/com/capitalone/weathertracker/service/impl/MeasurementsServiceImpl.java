@@ -3,7 +3,7 @@ package com.capitalone.weathertracker.service.impl;
 import com.capitalone.weathertracker.service.MeasurementService;
 import java.time.LocalDateTime;
 import com.capitalone.weathertracker.model.Metrics;
-import java.util.Map;
+import java.util.*;
 
 public class MeasurementServiceImpl implements MeasurementService {
     private Map<LocalDateTime, Metrics> weatherData = new HashMap<>();
