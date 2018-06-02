@@ -10,7 +10,7 @@ public class MeasurementService implements MeasurementService {
     public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
         weatherData.put(timestamp, metrics);
         for(Map.Entry<LocalDateTime, Metrics> entry : weatherDate.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + " + "value: " + entry.getValue());
+            System.out.println("Key: " + entry.getKey() + " value: " + entry.getValue());
         }
     }
 }
