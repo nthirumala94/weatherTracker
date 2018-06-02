@@ -67,7 +67,7 @@ public class RootResource {
         
         UriBuilder builder = uriInfo
         .getAbsolutePathBuilder()
-        .fromPath("http://localhost:8000" + "/measurements")
+        .fromPath("http://localhost:8000/measurements")
         .path(timeStamp.toString());
         // UriBuilder builder = null;
         // try {
