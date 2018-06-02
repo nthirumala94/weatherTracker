@@ -7,7 +7,17 @@ import java.util.*;
 import com.capitalone.weathertracker.util.WeatherTrackerUtil;
 
 public class MeasurementServiceImpl implements MeasurementService {
+    
+    private static MeasurementServiceImpl measurementServiceImpl = new MeasurementServiceImpl();
+    
+    private MeasurementServiceImpl() {}
+    
     private Map<LocalDateTime, Metrics> weatherData = new HashMap<>();
+    
+    public static MeasurementServiceImpl getInstance() {
+      return measurementServiceImpl;
+   }
+    
     @Override
     public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
         weatherData.put(timestamp, metrics);
