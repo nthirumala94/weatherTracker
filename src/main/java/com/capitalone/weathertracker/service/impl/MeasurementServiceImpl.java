@@ -36,7 +36,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 			
 			if(metricData != null) {
 			    Measurements m = new Measurements(
-			        dateTimestamp.toString(),
+			        WeatherTrackerUtil.convertLocalDateToString(dateTimestamp),
 			        metricData.getTemperature(),
 			        metricData.getDewPoint(),
 			        metricData.getPrecipation()
@@ -56,7 +56,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        ) {
 		            System.out.println("Match found");
 		            Measurements m = new Measurements(
-			        entry.getKey().toString(),
+			        WeatherTrackerUtil.convertLocalDateToString(entry.getKey()),
 			        entry.getValue().getTemperature(),
 			        entry.getValue().getDewPoint(),
 			        entry.getValue().getPrecipation()
