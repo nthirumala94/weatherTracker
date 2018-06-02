@@ -6,6 +6,8 @@ import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import com.capitalone.weathertracker.service.MeasurementService;
 
 /*
   TODO: Implement the endpoints in the ATs.
@@ -19,7 +21,7 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RootResource {
     private static final Response NOT_IMPLEMENTED = Response.status(501).build();
-
+    private MeasurementService measurementService = new MeasurementServiceImpl();
     // dummy handler so you can tell if the server is running
     // e.g. `curl localhost:8000`
     @GET
@@ -32,6 +34,14 @@ public class RootResource {
     // features/01-measurements/01-add-measurement.feature
     @POST @Path("/measurements")
     public Response createMeasurement(JsonNode measurement) {
+        LocalDateTime timeStamp = LocalDateTime.parse(measurement.get("timestamp").asText));
+        Metrics metric = new Metrics(
+            measurement.get("temperature").floatValue(),
+            measurement.get("dewPoint").floatValue(),
+            measurement.get("precipitation").floatValue()
+            );
+        
+        measurementService.addMeasurement(measurement, metric);
         /* Example:
         measurement := {
             "timestamp": "2015-09-01T16:00:00.000Z",
@@ -40,8 +50,8 @@ public class RootResource {
             "precipitation": 0
         }
         */
-
-        return NOT_IMPLEMENTED;
+        UriBuilder builder = UriBuilder.path("/measurements/" + timeStamp);
+        return Response.created(builder.build).build;
     }
 
     // features/01-measurements/02-get-measurement.feature
