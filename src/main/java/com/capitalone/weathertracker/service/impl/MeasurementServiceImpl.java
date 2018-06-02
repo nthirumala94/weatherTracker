@@ -1,7 +1,7 @@
 package com.capitalone.weathertracker.service.impl;
 
 import com.capitalone.weathertracker.service.MeasurementService;
-import java.time.LocalDateTime;
+import java.time.*;
 import com.capitalone.weathertracker.model.*;
 import java.util.*;
 import com.capitalone.weathertracker.util.WeatherTrackerUtil;
@@ -18,7 +18,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     @Override
     public ArrayList<Measurements> getMeasurement(String timestamp) {
-        List<Measurements> result = new ArrayList<>();
+        ArrayList<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
             LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
             
@@ -44,7 +44,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        ) {
 		            
 		            Measurements m = new Measurements(
-			        timestamp,
+			        localTimestamp,
 			        entry.getValue().getTemperature(),
 			        entry.getValue().getDewPoint(),
 			        entry.getValue().getPrecipation()
