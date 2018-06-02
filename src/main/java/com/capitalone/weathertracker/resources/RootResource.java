@@ -84,7 +84,7 @@ public class RootResource {
         System.out.println("Here is my path: " + Response.created(builder.build()).build());
         }
         catch (Exception e) {
-            return Response.BAD_REQUEST;
+            return Response.status(400).build();
         }
         return Response.created(builder.build()).build();
     }
