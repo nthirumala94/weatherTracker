@@ -21,6 +21,10 @@ public class Measurements implements Serializable {
             this.precipation = precipation;
         }
     
+    public Measurements() {
+        
+    }
+    
     public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
