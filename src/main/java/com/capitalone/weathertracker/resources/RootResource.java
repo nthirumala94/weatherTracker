@@ -28,6 +28,7 @@ import com.capitalone.weathertracker.model.Metrics;
 public class RootResource {
     private static final Response NOT_IMPLEMENTED = Response.status(501).build();
     private MeasurementService measurementService = new MeasurementServiceImpl();
+    private final String SERVER_URL = "http://localhost:8000";
     
     @Context
     private UriInfo uriInfo;
@@ -61,7 +62,8 @@ public class RootResource {
         }
         */
         // UriBuilder builder = UriBuilder.path("/measurements/" + timeStamp);
-        UriBuilder builder = uriInfo.getAbsolutePathBuilder()
+        UriBuilder builder = UriBuilder
+        .Path(SERVER_URL)
         .fromPath("measurements")
         .path(timeStamp.toString());
         return Response.created(builder.build()).build();
