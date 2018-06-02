@@ -34,7 +34,6 @@ public class Metrics {
 		this.precipation = precipation;
 	}
 	
-	
 	public String toString() {
 	    String string = "Metrics { " +
 	        "temperature = " + this.temperature +
