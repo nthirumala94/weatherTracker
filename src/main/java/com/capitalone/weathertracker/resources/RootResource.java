@@ -101,7 +101,7 @@ public class RootResource {
     public Response getMeasurement(@PathParam("timestamp") String timestamp) {
         
         ArrayList<Measurements> measurementList = measurementService.getMeasurement(timestamp);
-        System.out.println(measurementList);
+        System.out.println("Here is the list" + measurementList);
 
         /* Example 1:
         timestamp := "2015-09-01T16:20:00.000Z"
@@ -133,7 +133,7 @@ public class RootResource {
         ]
         */
 
-        return Response.status(200).build();
+        return Response.status(200).entity(measurementList).build();
     }
 
     // features/01-measurements/03-update-measurement.feature
