@@ -9,6 +9,18 @@ public class Measurements implements Serializable {
     private float dewPoint;
     private float precipation;
     
+    public Measurements(
+        LocalDateTime timestamp,
+        float temperature,
+        float dewPoint,
+        float precipation
+        ) {
+            this.timestamp = timestamp;
+            this.temperature = temperature;
+            this.dewPoint = dewPoint;
+            this.precipation = precipation;
+        }
+    
     public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
