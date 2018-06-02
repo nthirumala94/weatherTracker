@@ -5,5 +5,5 @@ import com.capitalone.weathertracker.model.*;
 
 public interface MeasurementService {
     void addMeasurement(LocalDateTime timestamp, Metrics metrics);
-    void getMeasurement(LocalDateTime timestamp);
+    void getMeasurement(String timestamp);
 }
