@@ -53,8 +53,8 @@ public class RootResource {
             "precipitation": 0
         }
         */
-        UriBuilder builder = UriBuilder.path("/measurements/" + timeStamp);
-        return Response.created(builder.build).build;
+        UriBuilder builder = new UriBuilder();
+        return Response.created(builder.path("/measurements/" + timeStamp).build).build;
     }
 
     // features/01-measurements/02-get-measurement.feature
