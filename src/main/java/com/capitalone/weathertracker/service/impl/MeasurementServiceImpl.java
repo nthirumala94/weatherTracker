@@ -45,7 +45,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        entry.getKey().getMonth() == localTimestamp.getMonth() &&
 		        entry.getKey().getDayOfMonth() == localTimestamp.getDayOfMonth()
 		        ) {
-		            
+		            System.out.println("Match found");
 		            Measurements m = new Measurements(
 			        entry.getKey(),
 			        entry.getValue().getTemperature(),
