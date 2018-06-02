@@ -1,3 +1,5 @@
+package com.capitalone.model;
+
 public class Metrics {
     public float temperature;
     public float dewPoint;
