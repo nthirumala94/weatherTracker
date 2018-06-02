@@ -44,7 +44,7 @@ public class RootResource {
             measurement.get("precipitation").floatValue()
             );
         
-        measurementService.addMeasurement(measurement, metric);
+        measurementService.addMeasurement(timeStamp, metric);
         /* Example:
         measurement := {
             "timestamp": "2015-09-01T16:00:00.000Z",
