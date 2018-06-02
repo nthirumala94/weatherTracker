@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.capitalone.weathertracker.model.Metrics;
 import java.util.*;
 
-public class MeasurementServiceImpl implements MeasurementService {
+public class MeasurementsServiceImpl implements MeasurementService {
     private Map<LocalDateTime, Metrics> weatherData = new HashMap<>();
     @Override
     public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
