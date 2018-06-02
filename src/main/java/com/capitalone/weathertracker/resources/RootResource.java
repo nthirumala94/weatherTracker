@@ -178,4 +178,10 @@ public class RootResource {
 
         return NOT_IMPLEMENTED;
     }
+    
+    private LocalDateTime convertStringToLocalDate(String dateTimeStr) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+		LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, formatter);
+		return dateTime;
+    }
 }
