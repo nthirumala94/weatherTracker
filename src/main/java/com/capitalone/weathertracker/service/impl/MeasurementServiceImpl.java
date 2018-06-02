@@ -44,7 +44,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        ) {
 		            
 		            Measurements m = new Measurements(
-			        localTimestamp,
+			        emtry.getKey(),
 			        entry.getValue().getTemperature(),
 			        entry.getValue().getDewPoint(),
 			        entry.getValue().getPrecipation()
