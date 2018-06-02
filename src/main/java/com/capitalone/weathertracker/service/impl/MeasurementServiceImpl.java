@@ -11,14 +11,13 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
         weatherData.put(timestamp, metrics);
-        for(Map.Entry<LocalDateTime, Metrics> entry : weatherData.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + " value: " + entry.getValue().convertToString());
-        }
+        System.out.println("Size of weatherDate in addMeasurement" + weatherData.size());
     }
     
     @Override
     public ArrayList<Measurements> getMeasurement(String timestamp) {
         System.out.println("Entering getMeasurement: " + timestamp);
+        System.out.println("Entering getMeasurement size of weatherDate: " + weatherData.size());
         ArrayList<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
             LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
