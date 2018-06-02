@@ -18,6 +18,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     @Override
     public ArrayList<Measurements> getMeasurement(String timestamp) {
+        System.out.println("Entering getMeasurement: " + timestamp);
         ArrayList<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
             LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
@@ -34,6 +35,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 			    result.add(m);
 			}
 		} else {
+		    System.out.println("Entering Else, weatherData size" + weatherData.size);
 		    Iterator<Map.Entry<LocalDateTime, Metrics>> iterator = weatherData.entrySet().iterator();
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
