@@ -60,20 +60,19 @@ public class RootResource {
         */
         // UriBuilder builder = UriBuilder.path("/measurements/" + timeStamp);
         
-        // UriBuilder builder = UriBuilder
-        // .fromPath(SERVER_URL)
+        UriBuilder builder = UriBuilder
+        .fromPath(SERVER_URL + "/measurements")
+        .path(timeStamp.toString());
+        // UriBuilder builder = null;
+        // try {
+        // builder = UriBuilder
+        // .fromUri(new URI(SERVER_URL))
         // .path("measurements")
         // .path(timeStamp.toString());
-        UriBuilder builder = null;
-        try {
-        builder = UriBuilder
-        .fromUri(new URI(SERVER_URL))
-        .path("measurements")
-        .path(timeStamp.toString());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        // }
+        // catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         
         return Response.created(builder.build()).build();
     }
