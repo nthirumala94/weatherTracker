@@ -10,6 +10,10 @@ public class Metrics {
         this.dewPoint = dewPoint;
         this.precipation = precipation;
     }
+    
+    public Metrics() {
+        
+    }
 
 	public float getTemperature() {
 		return temperature;
