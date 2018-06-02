@@ -1,3 +1,5 @@
+package com.capitalone.weathertracker.model;
+
 import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
