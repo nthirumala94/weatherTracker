@@ -22,6 +22,7 @@ Feature: Get a measurement
       | timestamp                  | temperature | dewPoint | precipitation |
       | "2015-09-01T16:20:00.000Z" | 27.5        | 17.1     | 0             |
 
+@skip
   Scenario: Get a measurement that does not exist
     # GET /measurements/2015-09-01T16:50:00.000Z
     When I get a measurement for "2015-09-01T16:50:00.000Z"
@@ -39,6 +40,7 @@ Feature: Get a measurement
        | "2015-09-01T16:30:00.000Z" | 27.4        | 17.3     | 0             |
        | "2015-09-01T16:40:00.000Z" | 27.2        | 17.2     | 0             |
 
+@skip
   Scenario: Get measurement from a day where no measurements were taken.
     # GET /measurements/:date
     When I get measurements for "2015-09-03"
