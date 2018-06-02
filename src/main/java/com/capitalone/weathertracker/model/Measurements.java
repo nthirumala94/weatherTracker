@@ -6,13 +6,13 @@ import java.io.Serializable;
 
 @XmlRootElement
 public class Measurements implements Serializable {
-    private LocalDateTime timestamp;
+    private String timestamp;
     private float temperature;
     private float dewPoint;
     private float precipation;
     
     public Measurements(
-        LocalDateTime timestamp,
+        String timestamp,
         float temperature,
         float dewPoint,
         float precipation
@@ -27,10 +27,10 @@ public class Measurements implements Serializable {
         
     }
     
-    public LocalDateTime getTimestamp() {
+    public String getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(LocalDateTime timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 	public float getTemperature() {
