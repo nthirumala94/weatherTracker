@@ -7,4 +7,5 @@ import java.util.*;
 public interface MeasurementService {
      void addMeasurement(String timestamp, Metrics metrics);
      ArrayList<Measurements> getMeasurement(String timestamp);
+     void deleteMeasurement(String timestamp);
 }
