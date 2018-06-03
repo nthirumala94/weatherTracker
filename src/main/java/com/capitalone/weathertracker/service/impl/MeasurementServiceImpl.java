@@ -64,7 +64,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        ) {
 		            System.out.println("Match found");
 		            Measurements m = new Measurements(
-			        WeatherTrackerUtil.convertLocalDateToString(entry.getKey()),
+			        entry.getKey(),
 			        entry.getValue().getTemperature(),
 			        entry.getValue().getDewPoint(),
 			        entry.getValue().getPrecipation()
