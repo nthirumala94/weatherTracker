@@ -51,4 +51,10 @@ public class Measurements implements Serializable {
 	public void setPrecipitation(float precipitation) {
 		this.precipitation = precipitation;
 	}
+	
+	@Override
+	public String toString() {
+		return "Measurements [timestamp=" + timestamp + ", temperature=" + temperature + ", dewPoint=" + dewPoint
+				+ ", precipitation=" + precipitation + "]";
+	}
 }
