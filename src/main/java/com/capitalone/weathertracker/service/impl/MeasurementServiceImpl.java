@@ -67,6 +67,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		    }
 		}
 		System.out.println("Total results size: " + result.size());
+		WeatherTrackerUtil.sortMeasurementList(result);
 		for (Measurements object: result) {
             System.out.println(object);
         }
