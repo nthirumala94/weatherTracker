@@ -23,7 +23,7 @@ public class WeatherTrackerUtil {
         return formatDateTime;
     }
     
-    public void sortMeasurementList(ArrayList<Measurements> measurementList) {
+    public static void sortMeasurementList(ArrayList<Measurements> measurementList) {
     	Collections.sort(measurementList, new Comparator<Measurements>() {
     		@Override
     	    public int compare(Measurements m1, Measurements m2) {
