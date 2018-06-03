@@ -68,4 +68,30 @@ public class MeasurementServiceImpl implements MeasurementService {
 		System.out.println(result.size());
         return result;
     }
+    
+    @Override
+    public Measurements updateMeasurement(LocalDateTime timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists) {
+    	Measurements result = null;
+    	if(weatherData.keySet().contains(timestamp)) {
+    		entryExists = false;
+    	}
+    	if(isValidRequest) {
+    		weatherData.put(timestamp, metrics);
+    		result = new Measurements(
+    				timestamp.toString(),
+    				metrics.getTemperature(),
+    				metrics.getDewPoint(),
+    				metrics.getPrecipation()
+    				);
+    	} else {
+    		Metrics existingMetric = weatherData.get(timestamp);
+    		result = new Measurements(
+    				timestamp.toString(),
+    				existingMetric.getTemperature(),
+    				existingMetric.getDewPoint(),
+    				existingMetric.getPrecipation()
+    				);
+    	}
+    	return result;
+    }
 }
