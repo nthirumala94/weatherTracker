@@ -12,14 +12,14 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     private MeasurementServiceImpl() {}
     
-    private Map<LocalDateTime, Metrics> weatherData = new LinkedHashMap<>();
+    private Map<ZonedDateTime, Metrics> weatherData = new LinkedHashMap<>();
     
     public static MeasurementServiceImpl getInstance() {
       return measurementServiceImpl;
    }
     
     @Override
-    public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
+    public void addMeasurement(ZonedDateTime timestamp, Metrics metrics) {
         weatherData.put(timestamp, metrics);
         System.out.println("Size of weatherDate in addMeasurement" + weatherData.size());
     }
@@ -30,7 +30,7 @@ public class MeasurementServiceImpl implements MeasurementService {
         System.out.println("Entering getMeasurement size of weatherDate: " + weatherData.size());
         ArrayList<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
-            LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
+            ZonedDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
             
 			Metrics metricData = weatherData.get(dateTimestamp);
 			
@@ -45,10 +45,10 @@ public class MeasurementServiceImpl implements MeasurementService {
 			}
 		} else {
 		    System.out.println("Entering Else, weatherData size" + weatherData.size());
-		    Iterator<Map.Entry<LocalDateTime, Metrics>> iterator = weatherData.entrySet().iterator();
+		    Iterator<Map.Entry<ZonedDateTime, Metrics>> iterator = weatherData.entrySet().iterator();
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
-		        Map.Entry<LocalDateTime, Metrics> entry = iterator.next();
+		        Map.Entry<ZonedDateTime, Metrics> entry = iterator.next();
 		        System.out.println("Entry Key in loop: " + entry.getKey());
 		        if(entry.getKey().getYear() == localTimestamp.getYear() &&
 		        entry.getKey().getMonth() == localTimestamp.getMonth() &&
@@ -70,9 +70,8 @@ public class MeasurementServiceImpl implements MeasurementService {
     }
     
     @Override
-    public Measurements updateMeasurement(LocalDateTime timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists) {
+    public Measurements updateMeasurement(ZonedDateTime timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists) {
     	Measurements result = null;
-    	System.out.println("WeatherData size in update " + weatherData.size());
     	if(weatherData.keySet().contains(timestamp)) {
     		entryExists = false;
     	}
