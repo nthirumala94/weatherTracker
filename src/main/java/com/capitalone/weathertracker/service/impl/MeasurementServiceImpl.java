@@ -82,7 +82,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     }
     
     @Override
-    public void deleteMeasurement(String timestamp) {
-    	weatherData.remove(timestamp);
+    public Metrics deleteMeasurement(String timestamp) {
+    	return weatherData.remove(timestamp);
     }
 }
