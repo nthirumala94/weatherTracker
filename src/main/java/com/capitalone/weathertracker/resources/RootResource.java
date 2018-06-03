@@ -152,6 +152,7 @@ public class RootResource {
     	boolean entryExists = true;
     	boolean requestValid = isRequestValid(measurement);
     	String newTimestamp = measurement.get("timestamp").asText();
+    	System.out.println("Testing string timeStamp: " + newTimestamp);
     	LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
     	Metrics metric = new Metrics(
                 measurement.get("temperature").floatValue(),
