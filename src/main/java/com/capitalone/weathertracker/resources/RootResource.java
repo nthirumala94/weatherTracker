@@ -12,7 +12,7 @@ import javax.ws.rs.core.Context;
 import java.net.URI;
 import com.capitalone.weathertracker.service.MeasurementService;
 import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import com.capitalone.weathertracker.model.*;
 import java.lang.Exception;
@@ -50,7 +50,7 @@ public class RootResource {
     public Response createMeasurement(JsonNode measurement) {
         UriBuilder builder = null;
         try {
-        	ZonedDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(measurement.get("timestamp").asText());
+        LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(measurement.get("timestamp").asText());
         
         if(!isRequestValid(measurement)) {
             return Response.status(400).build();
@@ -62,7 +62,7 @@ public class RootResource {
             measurement.get("precipitation").floatValue()
             );
         
-        measurementService.addMeasurement(measurement.get("timestamp").asText(), metric);
+        measurementService.addMeasurement(timeStamp, metric);
         /* Example:
         measurement := {
             "timestamp": "2015-09-01T16:00:00.000Z",
@@ -147,38 +147,8 @@ public class RootResource {
             "precipitation": 0
         }
         */
-    	int status = 0;
-    	boolean entryExists = true;
-    	boolean requestValid = isRequestValid(measurement);
-    	String newTimestamp = measurement.get("timestamp").asText();
-    	System.out.println("Timestamp testStr: " + newTimestamp);
-    	System.out.println("ZonedDateTimeStamp: " + timestamp);
-    	Metrics metric = new Metrics(
-                measurement.get("temperature").floatValue(),
-                measurement.get("dewPoint").floatValue(),
-                measurement.get("precipitation").floatValue()
-                );
-    	Measurements result = measurementService.updateMeasurement(timestamp,
-    			metric,
-    			requestValid,
-    			entryExists
-    			);
-    	
-    	if(!requestValid) {
-    		status = 400;
-    	} else if(!timestamp.equals(newTimestamp)) {
-    		status = 409;
-    	} else if(!entryExists) {
-    		status = 404;
-    	} else {
-    		status = 204;
-    	}
-    	
-    	System.out.println("This is the status: " + status);
-    	System.out.println("Measurements results: " + result.getTimestamp() + ", "
-    	+ result.getTemperature() + ", " + result.getDewPoint() + ", " + result.getPrecipitation());
-    	
-        return Response.status(status).entity(result).build();
+
+        return NOT_IMPLEMENTED;
     }
 
     // features/01-measurements/03-update-measurement.feature
@@ -203,7 +173,7 @@ public class RootResource {
         timestamp := "2015-09-01T16:20:00.000Z"
         */
 
-        return Response.status(204).build();
+        return NOT_IMPLEMENTED;
     }
 
     @GET @Path("/stats")
