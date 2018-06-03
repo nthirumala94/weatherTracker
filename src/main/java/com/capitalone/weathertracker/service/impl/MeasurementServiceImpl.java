@@ -100,4 +100,9 @@ public class MeasurementServiceImpl implements MeasurementService {
     	}
     	return result;
     }
+    
+    @Override
+    public void deleteMeasurement(String timestamp) {
+    	weatherData.remove(timestamp);
+    }
 }
