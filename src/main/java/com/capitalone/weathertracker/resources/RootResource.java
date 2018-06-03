@@ -175,7 +175,8 @@ public class RootResource {
     	}
     	
     	System.out.println("This is the status: " + status);
-    	System.out.println("Measurements results: " + result);
+    	System.out.println("Measurements results: " + result.getTimestamp() + ", "
+    	+ result.getTemperature() + ", " + result.getDewPoint() + ", " + result.getPrecipitation());
     	
         return Response.status(status).entity(result).build();
     }
