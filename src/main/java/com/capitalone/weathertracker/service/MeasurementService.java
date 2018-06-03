@@ -7,5 +7,5 @@ import java.util.*;
 public interface MeasurementService {
      void addMeasurement(LocalDateTime timestamp, Metrics metrics);
      ArrayList<Measurements> getMeasurement(String timestamp);
-     Measurements updateMeasurement(LocalDateTime timestamp, Metrics metrics);
+     Measurements updateMeasurement(LocalDateTime timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists);
 }
