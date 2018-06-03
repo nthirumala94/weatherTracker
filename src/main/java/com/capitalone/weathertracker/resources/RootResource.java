@@ -158,6 +158,7 @@ public class RootResource {
                 measurement.get("dewPoint").floatValue(),
                 measurement.get("precipitation").floatValue()
                 );
+        System.out.println("Testing newTimeStamp: " + timeStamp);
     	Measurements result = measurementService.updateMeasurement(timeStamp,
     			metric,
     			requestValid,
