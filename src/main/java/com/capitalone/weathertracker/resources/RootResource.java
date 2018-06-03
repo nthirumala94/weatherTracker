@@ -173,8 +173,14 @@ public class RootResource {
         timestamp := "2015-09-01T16:20:00.000Z"
         */
 
-        measurementService.deleteMeasurement(timestamp);
-        return Response.status(204).build();
+        Measurements result = measurementService.deleteMeasurement(timestamp);
+        int status = 0;
+        if(result != null) {
+            status = 204;
+        } else {
+            status = 404;
+        }
+        return Response.status(status).build();
     }
 
     @GET @Path("/stats")
