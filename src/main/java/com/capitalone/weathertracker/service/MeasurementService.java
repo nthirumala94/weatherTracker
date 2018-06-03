@@ -5,6 +5,6 @@ import com.capitalone.weathertracker.model.*;
 import java.util.*;
 
 public interface MeasurementService {
-     void addMeasurement(LocalDateTime timestamp, Metrics metrics);
+     void addMeasurement(String timestamp, Metrics metrics);
      ArrayList<Measurements> getMeasurement(String timestamp);
 }
