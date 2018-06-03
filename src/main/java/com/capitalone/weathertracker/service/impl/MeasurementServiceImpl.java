@@ -12,14 +12,14 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     private MeasurementServiceImpl() {}
     
-    private Map<ZonedDateTime, Metrics> weatherData = new LinkedHashMap<>();
+    private Map<String, Metrics> weatherData = new LinkedHashMap<>();
     
     public static MeasurementServiceImpl getInstance() {
       return measurementServiceImpl;
    }
     
     @Override
-    public void addMeasurement(ZonedDateTime timestamp, Metrics metrics) {
+    public void addMeasurement(String timestamp, Metrics metrics) {
         weatherData.put(timestamp, metrics);
         System.out.println("Size of weatherDate in addMeasurement" + weatherData.size());
     }
@@ -45,18 +45,23 @@ public class MeasurementServiceImpl implements MeasurementService {
 			}
 		} else {
 		    System.out.println("Entering Else, weatherData size" + weatherData.size());
-		    Iterator<Map.Entry<ZonedDateTime, Metrics>> iterator = weatherData.entrySet().iterator();
+		    Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
-		        Map.Entry<ZonedDateTime, Metrics> entry = iterator.next();
+		        Map.Entry<String, Metrics> entry = iterator.next();
 		        System.out.println("Entry Key in loop: " + entry.getKey());
-		        if(entry.getKey().getYear() == localTimestamp.getYear() &&
-		        entry.getKey().getMonth() == localTimestamp.getMonth() &&
-		        entry.getKey().getDayOfMonth() == localTimestamp.getDayOfMonth()
+		        String[] entryKeySplit = entry.getKey().split("(?:-|T)");
+		        int year = Integer.parseInt(entryKeySplit[0]);
+		        int month = Integer.parseInt(entryKeySplit[1]);
+		        int day = Integer.parseInt(entryKeySplit[2]);
+		        System.out.println("Year : " + year + " month " + month + " day " + day);
+		        if(year == localTimestamp.getYear() &&
+		        month == localTimestamp.getMonth().getValue() &&
+		        day == localTimestamp.getDayOfMonth()
 		        ) {
 		            System.out.println("Match found");
 		            Measurements m = new Measurements(
-			        WeatherTrackerUtil.convertLocalDateToString(entry.getKey()),
+			        entry.getKey(),
 			        entry.getValue().getTemperature(),
 			        entry.getValue().getDewPoint(),
 			        entry.getValue().getPrecipation()
@@ -70,7 +75,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     }
     
     @Override
-    public Measurements updateMeasurement(ZonedDateTime timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists) {
+    public Measurements updateMeasurement(String timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists) {
     	Measurements result = null;
     	if(weatherData.keySet().contains(timestamp)) {
     		entryExists = false;
