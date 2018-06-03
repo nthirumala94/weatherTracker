@@ -62,7 +62,7 @@ public class RootResource {
             measurement.get("precipitation").floatValue()
             );
         
-        measurementService.addMeasurement(timeStamp, metric);
+        measurementService.addMeasurement(timestamp, metric);
         /* Example:
         measurement := {
             "timestamp": "2015-09-01T16:00:00.000Z",
@@ -76,7 +76,7 @@ public class RootResource {
         builder = uriInfo
         .getAbsolutePathBuilder()
         .fromPath("http://localhost:8000/measurements")
-        .path(timeStamp.toString());
+        .path(timestamp);
         // UriBuilder builder = null;
         // try {
         // builder = UriBuilder
