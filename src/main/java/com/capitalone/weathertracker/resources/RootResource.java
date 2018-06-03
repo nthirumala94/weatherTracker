@@ -59,7 +59,7 @@ public class RootResource {
         Metrics metric = new Metrics(
             measurement.get("temperature").floatValue(),
             measurement.get("dewPoint").floatValue(),
-            measurement.get("precipitation").floatValue()
+            measurement.get("precipitation").asText()
             );
         
         measurementService.addMeasurement(measurement.get("timestamp").asText(), metric);
