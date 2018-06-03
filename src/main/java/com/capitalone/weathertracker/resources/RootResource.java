@@ -131,11 +131,17 @@ public class RootResource {
         ]
         */
         
+        Response resp = null;
         if(measurementList.size() != 0) {
-            return Response.status(200).entity(measurementList).build();
+        	if(measurementList.size() > 1) {
+        		resp = Response.status(200).entity(measurementList).build();
+        	} else {
+        		resp = Response.status(200).entity(measurementList.get(0)).build();
+        	}
         } else {
-            return Response.status(404).build();
+            resp = Response.status(404).build();
         }
+        return resp;
     }
 
     // features/01-measurements/03-update-measurement.feature
