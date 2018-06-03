@@ -90,6 +90,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     				);
     	} else {
     		Metrics existingMetric = weatherData.get(timestamp);
+    		System.out.println("The error with Metric: " + existingMetric);
     		result = new Measurements(
     				timestamp.toString(),
     				existingMetric.getTemperature(),
