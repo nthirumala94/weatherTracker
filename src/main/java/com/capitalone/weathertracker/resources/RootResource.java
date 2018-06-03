@@ -174,6 +174,9 @@ public class RootResource {
     		status = 204;
     	}
     	
+    	System.out.println("This is the status: " + status);
+    	System.out.println("Measurements results: " + result);
+    	
         return Response.status(status).entity(result).build();
     }
 
