@@ -12,14 +12,14 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     private MeasurementServiceImpl() {}
     
-    private Map<LocalDateTime, Metrics> weatherData = new LinkedHashMap<>();
+    private Map<String, Metrics> weatherData = new LinkedHashMap<>();
     
     public static MeasurementServiceImpl getInstance() {
       return measurementServiceImpl;
    }
     
     @Override
-    public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
+    public void addMeasurement(String timestamp, Metrics metrics) {
         System.out.println("Here is the timestamp: " + timestamp + ", metrics" + metrics);
         weatherData.put(timestamp, metrics);
         System.out.println("Size of weatherDate in addMeasurement" + weatherData.size());
@@ -33,11 +33,11 @@ public class MeasurementServiceImpl implements MeasurementService {
         if(timestamp.toString().length() > 10) {
             LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
             
-			Metrics metricData = weatherData.get(dateTimestamp);
+			Metrics metricData = weatherData.get(timestamp);
 			
 			if(metricData != null) {
 			    Measurements m = new Measurements(
-			        WeatherTrackerUtil.convertLocalDateToString(dateTimestamp),
+			        timestamp,
 			        metricData.getTemperature(),
 			        metricData.getDewPoint(),
 			        metricData.getPrecipation()
@@ -46,14 +46,21 @@ public class MeasurementServiceImpl implements MeasurementService {
 			}
 		} else {
 		    System.out.println("Entering Else, weatherData size" + weatherData.size());
-		    Iterator<Map.Entry<LocalDateTime, Metrics>> iterator = weatherData.entrySet().iterator();
+		    Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
-		        Map.Entry<LocalDateTime, Metrics> entry = iterator.next();
+		        Map.Entry<String, Metrics> entry = iterator.next();
 		        System.out.println("Entry Key in loop: " + entry.getKey());
-		        if(entry.getKey().getYear() == localTimestamp.getYear() &&
-		        entry.getKey().getMonth() == localTimestamp.getMonth() &&
-		        entry.getKey().getDayOfMonth() == localTimestamp.getDayOfMonth()
+		        String[] entryKeySplit = entry.getKey().split("(?:-|T)");
+		        
+		        int year = Integer.parseInt(entryKeySplit[0]);
+		        int month = Integer.parseInt(entryKeySplit[1]);
+		        int day = Integer.parseInt(entryKeySplit[2]);
+		        System.out.println("Year : " + year + " month " + month + " day " + day);
+		        
+		        if(year == localTimestamp.getYear() &&
+		        month == localTimestamp.getMonth().getValue() &&
+		        day == localTimestamp.getDayOfMonth()
 		        ) {
 		            System.out.println("Match found");
 		            Measurements m = new Measurements(
