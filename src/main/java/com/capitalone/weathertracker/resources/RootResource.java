@@ -148,8 +148,33 @@ public class RootResource {
         }
         */
         //Testing gitStuff
-
-        return NOT_IMPLEMENTED;
+        int status = 0;
+    	boolean entryExists = true;
+    	boolean requestValid = isRequestValid(measurement);
+    	String newTimestamp = measurement.get("timestamp").asText();
+    	LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
+    	Metrics metric = new Metrics(
+                measurement.get("temperature").floatValue(),
+                measurement.get("dewPoint").floatValue(),
+                measurement.get("precipitation").floatValue()
+                );
+    	Measurements result = measurementService.updateMeasurement(timeStamp,
+    			metric,
+    			requestValid,
+    			entryExists
+    			);
+    	
+    	if(!requestValid) {
+    		status = 400;
+    	} else if(!timestamp.equals(newTimestamp)) {
+    		status = 409;
+    	} else if(!entryExists) {
+    		status = 404;
+    	} else {
+    		status = 204;
+    	}
+    	
+        return Response.status(status).entity(result).build();
     }
 
     // features/01-measurements/03-update-measurement.feature
