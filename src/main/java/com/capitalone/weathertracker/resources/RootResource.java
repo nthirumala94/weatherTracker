@@ -152,8 +152,7 @@ public class RootResource {
     	boolean requestValid = isRequestValid(measurement);
     	String newTimestamp = measurement.get("timestamp").asText();
     	System.out.println("Timestamp testStr: " + newTimestamp);
-    	ZonedDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
-    	System.out.println("ZonedDateTimeStamp: " + timeStamp);
+    	System.out.println("ZonedDateTimeStamp: " + timestamp);
     	Metrics metric = new Metrics(
                 measurement.get("temperature").floatValue(),
                 measurement.get("dewPoint").floatValue(),
