@@ -5,7 +5,7 @@ import com.capitalone.weathertracker.model.*;
 import java.util.*;
 
 public interface MeasurementService {
-     void addMeasurement(ZonedDateTime timestamp, Metrics metrics);
+     void addMeasurement(String timestamp, Metrics metrics);
      ArrayList<Measurements> getMeasurement(String timestamp);
-     Measurements updateMeasurement(ZonedDateTime timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists);
+     Measurements updateMeasurement(String timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists);
 }
