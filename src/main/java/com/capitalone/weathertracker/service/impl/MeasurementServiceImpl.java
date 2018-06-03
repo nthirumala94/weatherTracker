@@ -20,6 +20,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     @Override
     public void addMeasurement(LocalDateTime timestamp, Metrics metrics) {
+        System.out.println("Here is the timestamp: " + timestamp + ", metrics" + metrics);
         weatherData.put(timestamp, metrics);
         System.out.println("Size of weatherDate in addMeasurement" + weatherData.size());
     }
