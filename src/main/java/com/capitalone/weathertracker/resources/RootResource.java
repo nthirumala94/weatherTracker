@@ -12,7 +12,7 @@ import javax.ws.rs.core.Context;
 import java.net.URI;
 import com.capitalone.weathertracker.service.MeasurementService;
 import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import com.capitalone.weathertracker.model.*;
 import java.lang.Exception;
@@ -50,7 +50,7 @@ public class RootResource {
     public Response createMeasurement(JsonNode measurement) {
         UriBuilder builder = null;
         try {
-        LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(measurement.get("timestamp").asText());
+        	ZonedDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(measurement.get("timestamp").asText());
         
         if(!isRequestValid(measurement)) {
             return Response.status(400).build();
@@ -147,19 +147,16 @@ public class RootResource {
             "precipitation": 0
         }
         */
-        //Testing gitStuff
-        int status = 0;
+    	int status = 0;
     	boolean entryExists = true;
     	boolean requestValid = isRequestValid(measurement);
     	String newTimestamp = measurement.get("timestamp").asText();
-    	System.out.println("Testing string timeStamp: " + newTimestamp);
-    	LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
+    	ZonedDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
     	Metrics metric = new Metrics(
                 measurement.get("temperature").floatValue(),
                 measurement.get("dewPoint").floatValue(),
                 measurement.get("precipitation").floatValue()
                 );
-        System.out.println("Testing newTimeStamp: " + timeStamp);
     	Measurements result = measurementService.updateMeasurement(timeStamp,
     			metric,
     			requestValid,
