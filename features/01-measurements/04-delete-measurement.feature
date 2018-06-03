@@ -17,7 +17,7 @@ Feature: Delete a measurement
     But the measurement for "2015-09-01T16:10:00.000Z" is:
       | timestamp                  | temperature | dewPoint | precipitation |
       | "2015-09-01T16:10:00.000Z" | 27.3        | 16.9     | 0             |
-
+@skip
   Scenario: Delete a measurement that does not exist
     # DELETE /measurements/2015-09-01T16:20:00.000Z
     When I delete the measurement for "2015-09-01T16:20:00.000Z"
