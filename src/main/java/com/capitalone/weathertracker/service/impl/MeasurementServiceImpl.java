@@ -37,7 +37,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 			
 			if(metricData != null) {
 			    Measurements m = new Measurements(
-			        timestamp,
+			        "\"" + timestamp + "\"",
 			        metricData.getTemperature(),
 			        metricData.getDewPoint(),
 			        metricData.getPrecipation()
