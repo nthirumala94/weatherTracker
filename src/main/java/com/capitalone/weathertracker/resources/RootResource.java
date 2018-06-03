@@ -203,7 +203,7 @@ public class RootResource {
         timestamp := "2015-09-01T16:20:00.000Z"
         */
 
-        return NOT_IMPLEMENTED;
+        return Response.status(204).build();
     }
 
     @GET @Path("/stats")
