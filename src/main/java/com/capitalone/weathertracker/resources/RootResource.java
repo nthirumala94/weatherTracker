@@ -173,7 +173,7 @@ public class RootResource {
         timestamp := "2015-09-01T16:20:00.000Z"
         */
 
-        Measurements result = measurementService.deleteMeasurement(timestamp);
+        Metrics result = measurementService.deleteMeasurement(timestamp);
         int status = 0;
         if(result != null) {
             status = 204;
