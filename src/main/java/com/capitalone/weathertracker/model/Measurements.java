@@ -9,13 +9,13 @@ public class Measurements implements Serializable {
     private String timestamp;
     private float temperature;
     private float dewPoint;
-    private String precipitation;
+    private float precipitation;
     
     public Measurements(
         String timestamp,
         float temperature,
         float dewPoint,
-        String precipitation
+        float precipitation
         ) {
             this.timestamp = timestamp;
             this.temperature = temperature;
@@ -45,10 +45,10 @@ public class Measurements implements Serializable {
 	public void setDewPoint(float dewPoint) {
 		this.dewPoint = dewPoint;
 	}
-	public String getPrecipitation() {
+	public float getPrecipitation() {
 		return precipitation;
 	}
-	public void setPrecipitation(String precipitation) {
+	public void setPrecipitation(float precipitation) {
 		this.precipitation = precipitation;
 	}
 	
