@@ -62,7 +62,7 @@ public class RootResource {
             measurement.get("precipitation").floatValue()
             );
         
-        measurementService.addMeasurement(timeStamp, metric);
+        measurementService.addMeasurement(measurement.get("timestamp").asText(), metric);
         /* Example:
         measurement := {
             "timestamp": "2015-09-01T16:00:00.000Z",
@@ -159,7 +159,7 @@ public class RootResource {
                 measurement.get("dewPoint").floatValue(),
                 measurement.get("precipitation").floatValue()
                 );
-    	Measurements result = measurementService.updateMeasurement(timeStamp,
+    	Measurements result = measurementService.updateMeasurement(timestamp,
     			metric,
     			requestValid,
     			entryExists
