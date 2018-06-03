@@ -3,9 +3,9 @@ package com.capitalone.weathertracker.model;
 public class Metrics {
     public float temperature;
     public float dewPoint;
-    public String precipation;
+    public float precipation;
     
-    public Metrics(float temperature, float dewPoint, String precipation) {
+    public Metrics(float temperature, float dewPoint, float precipation) {
         this.temperature = temperature;
         this.dewPoint = dewPoint;
         this.precipation = precipation;
@@ -27,10 +27,10 @@ public class Metrics {
 	public void setDewPoint(float dewPoint) {
 		this.dewPoint = dewPoint;
 	}
-	public String getPrecipation() {
+	public float getPrecipation() {
 		return precipation;
 	}
-	public void setPrecipation(String precipation) {
+	public void setPrecipation(float precipation) {
 		this.precipation = precipation;
 	}
 	
