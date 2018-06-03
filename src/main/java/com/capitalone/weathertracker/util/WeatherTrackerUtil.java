@@ -8,6 +8,7 @@ public class WeatherTrackerUtil {
     public static ZonedDateTime convertStringToLocalDate(String dateTimeStr) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 		ZonedDateTime dateTime = ZonedDateTime.parse(dateTimeStr, formatter);
+		dateTime = dateTime.format(formatter);
 		return dateTime;
     }
     
