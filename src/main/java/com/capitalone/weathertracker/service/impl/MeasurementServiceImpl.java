@@ -72,6 +72,7 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public Measurements updateMeasurement(LocalDateTime timestamp, Metrics metrics, boolean isValidRequest, boolean entryExists) {
     	Measurements result = null;
+    	System.out.println("WeatherData size in update " + weatherData.size());
     	if(weatherData.keySet().contains(timestamp)) {
     		entryExists = false;
     	}
