@@ -65,7 +65,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        }
 		    }
 		}
-		System.out.println(result.size());
+		System.out.println("Total results size: " + result.size());
         return result;
     }
 }
