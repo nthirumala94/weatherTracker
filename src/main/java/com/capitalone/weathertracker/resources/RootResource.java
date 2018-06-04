@@ -192,7 +192,7 @@ public class RootResource {
         }
         */
 
-        int status;
+    	int status;
     	boolean isValidRequest = true;
     	if(measurement.get("temperature") != null) {
     		isValidRequest = isValidRequest && isFloatCheck(measurement.get("temperature").asText());
@@ -208,9 +208,9 @@ public class RootResource {
     		String newtimestamp = measurement.get("timestamp").asText();
     		if(newtimestamp.equals(timestamp)) {
     			Metrics metric = new Metrics(
-    					measurement.get("temperature").floatValue(),
-    					measurement.get("dewPoint").floatValue(),
-    					measurement.get("precipitation").floatValue()
+    					convertNullToFloat(measurement.get("temperature")),
+    					convertNullToFloat(measurement.get("dewPoint")),
+    					convertNullToFloat(measurement.get("precipitation"))
     					);
 
     			status = measurementService.patchMeasurement(timestamp, metric);
@@ -292,20 +292,12 @@ public class RootResource {
         return true;
     }
     
-    private boolean isRequestValidPatch(JsonNode measurement) {
-    	try {
-    		String temp = measurement.get("temperature").asText();
-    		String dew = measurement.get("dewPoint").asText();
-    		String prec = measurement.get("precipitation").asText();
-    		
-    		Float.parseFloat(temp);
-    		Float.parseFloat(dew);
-    		Float.parseFloat(prec);
-    	} catch (Exception e) {
-    		return false;
+    private float convertNullToFloat(JsonNode measurement) {
+    	if(measurement == null) {
+    		return Float.MIN_VALUE;
+    	} else {
+    		return measurement.floatValue();
     	}
-    	
-    	return true;
     }
     
     private boolean isRequestValid(JsonNode measurement) {
