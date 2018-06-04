@@ -1,4 +1,4 @@
-@skip
+
 Feature: Update a measurement
   In order to correct the record of weather conditions
   I want to be able to update a measurement taken at a specific time
@@ -19,7 +19,7 @@ Feature: Update a measurement
     And the measurement for "2015-09-01T16:00:00.000Z" is:
       | timestamp                  | temperature | dewPoint | precipitation |
       | "2015-09-01T16:00:00.000Z" | 27.1        | 16.7     | 15.2          |
-
+@skip
   Scenario: Replace a measurement with invalid values
     # PUT /measurements/2015-09-01T16:00:00.000Z
     When I replace the measurement for "2015-09-01T16:00:00.000Z" as follows:
@@ -29,7 +29,7 @@ Feature: Update a measurement
     And the measurement for "2015-09-01T16:00:00.000Z" is:
       | timestamp              | temperature | dewPoint | precipitation |
       | "2015-09-01T16:00:00.000Z" | 27.1        | 16.7     | 0             |
-
+@skip
   Scenario: Replace a measurement with mismatched timestamps
     # PUT /measurements/2015-09-01T16:00:00.000Z
     When I replace the measurement for "2015-09-01T16:00:00.000Z" as follows:
@@ -39,7 +39,7 @@ Feature: Update a measurement
     And the measurement for "2015-09-01T16:00:00.000Z" is:
       | timestamp              | temperature | dewPoint | precipitation |
       | "2015-09-01T16:00:00.000Z" | 27.1        | 16.7     | 0             |
-
+@skip
   Scenario: Replace a measurement that does not exist
     # PUT /measurements/2015-09-02T16:00:00.000Z
     When I replace the measurement for "2015-09-02T16:00:00.000Z" as follows:
