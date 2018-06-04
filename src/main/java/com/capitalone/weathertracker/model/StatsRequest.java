@@ -7,15 +7,23 @@ public class StatsRequest {
 
     private ArrayList<String> metric;
     private ArrayList<String> stats;
-//    private LocalDate fromDateTime;
-//    private LocalDate toDateTime;
+    private LocalDate fromDateTime;
+    private LocalDate toDateTime;
     
     public StatsRequest(ArrayList<String> metric, ArrayList<String> stats) {
     	this.metric = metric;
     	this.stats = stats;
     }
 
-    public ArrayList<String> getMetric() {
+    public StatsRequest(ArrayList<String> metric, ArrayList<String> stats, LocalDate fromDateTime,
+			LocalDate toDateTime) {
+		this.metric = metric;
+		this.stats = stats;
+		this.fromDateTime = fromDateTime;
+		this.toDateTime = toDateTime;
+	}
+
+	public ArrayList<String> getMetric() {
         return metric;
     }
 
@@ -31,21 +39,21 @@ public class StatsRequest {
         this.stats = stats;
     }
 
-//    public LocalDate getFromDateTime() {
-//        return fromDateTime;
-//    }
-//
-//    public void setFromDateTime(LocalDate fromDateTime) {
-//        this.fromDateTime = fromDateTime;
-//    }
-//
-//    public LocalDate getToDateTime() {
-//        return toDateTime;
-//    }
-//
-//    public void setToDateTime(LocalDate toDateTime) {
-//        this.toDateTime = toDateTime;
-//    }
+    public LocalDate getFromDateTime() {
+        return fromDateTime;
+    }
+
+    public void setFromDateTime(LocalDate fromDateTime) {
+        this.fromDateTime = fromDateTime;
+    }
+
+    public LocalDate getToDateTime() {
+        return toDateTime;
+    }
+
+    public void setToDateTime(LocalDate toDateTime) {
+        this.toDateTime = toDateTime;
+    }
 
 
 }
