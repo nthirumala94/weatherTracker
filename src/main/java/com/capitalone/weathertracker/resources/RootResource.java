@@ -157,8 +157,18 @@ public class RootResource {
             "precipitation": 0
         }
         */
+    	
+    	Metrics metric = new Metrics(
+                measurement.get("temperature").floatValue(),
+                measurement.get("dewPoint").floatValue(),
+                measurement.get("precipitation").floatValue()
+                );
+    	
+    	Metrics m = measurementService.updateMeasurement(timestamp, metric);
+    	
+    	Measurements measurements = new Measurements(timestamp, metric.getTemperature(), metric.getDewPoint(), metric.getPrecipation());
 
-        return NOT_IMPLEMENTED;
+        return Response.status(204).entity(measurements).build();
     }
 
     // features/01-measurements/03-update-measurement.feature
