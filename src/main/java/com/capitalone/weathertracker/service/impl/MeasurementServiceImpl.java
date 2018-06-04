@@ -217,7 +217,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
 						switch (metric) {
 							case "temperature":
-
+							    
 								break;
 							case "dewPoint":
 								break;
