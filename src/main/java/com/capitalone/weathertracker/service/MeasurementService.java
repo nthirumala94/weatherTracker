@@ -8,5 +8,5 @@ public interface MeasurementService {
      void addMeasurement(String timestamp, Metrics metrics);
      ArrayList<Measurements> getMeasurement(String timestamp);
      Metrics deleteMeasurement(String timestamp);
-     Metrics updateMeasurement(String timestamp, Metrics metrics);
+     int updateMeasurement(String timestamp, Metrics metrics);
 }
