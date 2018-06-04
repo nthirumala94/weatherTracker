@@ -122,24 +122,24 @@ public class MeasurementServiceImpl implements MeasurementService {
 	public ArrayList<StatsResponse> getMeasurementStatistics(StatsRequest statsRequest) {
 
 		ArrayList<StatsResponse> statsResponseList = new ArrayList<StatsResponse>();
-		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
+//		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
 		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
-		while(iterator.hasNext()) {
-			Map.Entry<String, Metrics> entry = iterator.next();
-			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
-			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
-					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
-					&& (localTimestamp.isEqual(statsRequest.getToDateTime())
-					|| localTimestamp.isAfter(statsRequest.getToDateTime()))) {
-				weatherDataForStats.put(entry.getKey(),entry.getValue());
-			}
-		}
+//		while(iterator.hasNext()) {
+//			Map.Entry<String, Metrics> entry = iterator.next();
+//			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
+//			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
+//					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
+//					&& (localTimestamp.isEqual(statsRequest.getToDateTime())
+//					|| localTimestamp.isAfter(statsRequest.getToDateTime()))) {
+//				weatherDataForStats.put(entry.getKey(),entry.getValue());
+//			}
+//		}
     	for(String metric : statsRequest.getMetric()){
 			for(String stat : statsRequest.getStats()) {
 				StatsResponse statsResp = new StatsResponse();
 				statsResp.setMetric(metric);
 				statsResp.setStat(stat);
-				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherDataForStats.entrySet().iterator();
+				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherData.entrySet().iterator();
 				if (stat.equalsIgnoreCase("min")) {
 					while (statsIterator.hasNext()) {
 						Map.Entry<String, Metrics> statsEntry = iterator.next();
