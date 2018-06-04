@@ -167,6 +167,8 @@ public class RootResource {
     	Metrics m = measurementService.updateMeasurement(timestamp, metric);
     	
     	Measurements measurements = new Measurements(timestamp, metric.getTemperature(), metric.getDewPoint(), metric.getPrecipation());
+    	
+    	System.out.println("In Update, the measurements: " + measurements);
 
         return Response.status(204).entity(measurements).build();
     }
