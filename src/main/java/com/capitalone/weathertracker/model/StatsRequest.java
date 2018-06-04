@@ -1,22 +1,22 @@
 package com.capitalone.weathertracker.model;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.util.ArrayList;
 
 public class StatsRequest {
 
     private ArrayList<String> metric;
     private ArrayList<String> stats;
-    private LocalDate fromDateTime;
-    private LocalDate toDateTime;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
     
     public StatsRequest(ArrayList<String> metric, ArrayList<String> stats) {
     	this.metric = metric;
     	this.stats = stats;
     }
 
-    public StatsRequest(ArrayList<String> metric, ArrayList<String> stats, LocalDate fromDateTime,
-			LocalDate toDateTime) {
+    public StatsRequest(ArrayList<String> metric, ArrayList<String> stats, LocalDateTime fromDateTime,
+    		LocalDateTime toDateTime) {
 		this.metric = metric;
 		this.stats = stats;
 		this.fromDateTime = fromDateTime;
@@ -39,19 +39,19 @@ public class StatsRequest {
         this.stats = stats;
     }
 
-    public LocalDate getFromDateTime() {
+    public LocalDateTime getFromDateTime() {
         return fromDateTime;
     }
 
-    public void setFromDateTime(LocalDate fromDateTime) {
+    public void setFromDateTime(LocalDateTime fromDateTime) {
         this.fromDateTime = fromDateTime;
     }
 
-    public LocalDate getToDateTime() {
+    public LocalDateTime getToDateTime() {
         return toDateTime;
     }
 
-    public void setToDateTime(LocalDate toDateTime) {
+    public void setToDateTime(LocalDateTime toDateTime) {
         this.toDateTime = toDateTime;
     }
 
