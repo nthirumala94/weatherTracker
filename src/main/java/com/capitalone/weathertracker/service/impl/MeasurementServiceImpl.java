@@ -142,7 +142,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherData.entrySet().iterator();
 				if (stat.equalsIgnoreCase("min")) {
 					while (statsIterator.hasNext()) {
-					    System.out.println("WeatherData size in stats: " + WeatherData.size());
+					    System.out.println("WeatherData size in stats: " + weatherData.size());
 						Map.Entry<String, Metrics> statsEntry = iterator.next();
 						switch (metric) {
 							case "temperature":
