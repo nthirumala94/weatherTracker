@@ -276,7 +276,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		Iterator<StatsResponse> statsIterator = statsResponse.iterator();
     	while(statsIterator.hasNext()) {
     		StatsResponse resp = statsIterator.next();
-    		System.out.println("StatsListInfo: " + resp.getMetric() + ", " + resp.getValue())
+    		System.out.println("StatsListInfo: " + resp.getMetric() + ", " + resp.getValue());
     	}
 		
     	return statsResponseList;
