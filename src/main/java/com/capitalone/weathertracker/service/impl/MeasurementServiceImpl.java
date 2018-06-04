@@ -158,7 +158,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 								if(statsResp.getValue() == 0.0f) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
-								if (statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
+								if (statsEntry.getValue().getDewPoint() != Float.MIN_VALUE && statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
 								break;
