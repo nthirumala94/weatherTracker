@@ -194,7 +194,7 @@ public class RootResource {
 
         int status;
     	
-    	if(isRequestValid(measurement)) {
+    	if(isRequestValidPatch(measurement)) {
     		String newtimestamp = measurement.get("timestamp").asText();
     		if(newtimestamp.equals(timestamp)) {
     			Metrics metric = new Metrics(
@@ -280,6 +280,22 @@ public class RootResource {
             return false;
         }
         return true;
+    }
+    
+    private boolean isRequestValidPatch(JsonNode measurement) {
+    	try {
+    		String temp = measurement.get("temperature").asText();
+    		String dew = measurement.get("dewPoint").asText();
+    		String prec = measurement.get("precipitation").asText();
+    		
+    		Float.parseFloat(temp);
+    		Float.parseFloat(dew);
+    		Float.parseFloat(prec);
+    	} catch (Exception e) {
+    		return false;
+    	}
+    	
+    	return true;
     }
     
     private boolean isRequestValid(JsonNode measurement) {
