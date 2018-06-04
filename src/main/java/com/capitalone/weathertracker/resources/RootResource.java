@@ -161,20 +161,18 @@ public class RootResource {
     	int status;
     	
     	if(isRequestValid(measurement)) {
-    		Metrics metric = new Metrics(
-                    measurement.get("temperature").floatValue(),
-                    measurement.get("dewPoint").floatValue(),
-                    measurement.get("precipitation").floatValue()
-                    );
-        	
-        	Metrics m = measurementService.updateMeasurement(timestamp, metric);
-        	
-        	Measurements measurements = new Measurements(timestamp, metric.getTemperature(), metric.getDewPoint(), metric.getPrecipation());
-        	
-        	System.out.println("In Update, the measurements: " + measurements);
-        	Response resp = Response.status(204).entity(measurements).build();
-        	System.out.println("In Update, the response: " + resp);
-        	status = 204;
+    		String newtimestamp = measurement.get("timestamp").asText();
+    		if(newtimestamp.equals(timestamp)) {
+    			Metrics metric = new Metrics(
+    					measurement.get("temperature").floatValue(),
+    					measurement.get("dewPoint").floatValue(),
+    					measurement.get("precipitation").floatValue()
+    					);
+
+    			status = measurementService.updateMeasurement(timestamp, metric);
+    		} else {
+    			status = 409;
+    		}
     	} else {
     		status = 400;
     	}
