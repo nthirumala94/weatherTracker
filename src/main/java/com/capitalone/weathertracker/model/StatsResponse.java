@@ -25,6 +25,10 @@ public class StatsResponse {
     public float getValue() {
         return value;
     }
+    
+    public String getStat() {
+    	return stat;
+    }
 
     public void setMetric(String metric) {
         this.metric = metric;
