@@ -68,9 +68,9 @@ public class RootResource {
         }
         
         Metrics metric = new Metrics(
-        		convertNullToFloat(measurement.get("temperature")),
-				convertNullToFloat(measurement.get("dewPoint")),
-				convertNullToFloat(measurement.get("precipitation"))
+        		convertNullToFloatAdd(measurement.get("temperature")),
+				convertNullToFloatAdd(measurement.get("dewPoint")),
+				convertNullToFloatAdd(measurement.get("precipitation"))
             );
         
         measurementService.addMeasurement(measurement.get("timestamp").asText(), metric);
@@ -307,6 +307,14 @@ public class RootResource {
     private float convertNullToFloat(JsonNode measurement) {
     	if(measurement == null) {
     		return Float.MIN_VALUE;
+    	} else {
+    		return measurement.floatValue();
+    	}
+    }
+    
+    private float convertNullToFloatAdd(JsonNode measurement) {
+    	if(measurement == null) {
+    		return 0.0f;
     	} else {
     		return measurement.floatValue();
     	}
