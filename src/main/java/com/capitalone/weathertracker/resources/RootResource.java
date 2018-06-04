@@ -292,9 +292,13 @@ public class RootResource {
             }
         ]
         */
-    	System.out.println("Here is the fromDateTime" + fromDateTime);
-    	System.out.println("Here is the toDateTime" + toDateTime);
-        StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats));
+    	LocalDateTime fromDateLdt = WeatherTrackerUtil.convertStringToLocalDate(fromDateTime);
+    	LocalDateTime toDateLdt = WeatherTrackerUtil.convertStringToLocalDate(toDateTime);
+    	LocalDate fromDateLt = LocalDate.of(fromDateLdt.getYear(), fromDateLdt.getMonthValue(), fromDateLdt.getDayOfMonth());
+    	LocalDate toDateLt = LocalDate.of(toDateLdt.getYear(), toDateLdt.getMonthValue(), toDateLdt.getDayOfMonth());
+    	System.out.println(fromDateLt);
+    	System.out.println(toDateLt);
+        StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats), fromDateLt, toDateLt);
     	ArrayList<StatsResponse> response = measurementService.getMeasurementStatistics(request);
         return Response.status(200).entity(response).build();
     }
