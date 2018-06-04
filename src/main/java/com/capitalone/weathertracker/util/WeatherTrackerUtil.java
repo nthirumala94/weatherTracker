@@ -31,4 +31,10 @@ public class WeatherTrackerUtil {
     	    }
     	});
     }
+    
+        public static LocalDate convertStringToLocalDateTimeToLocalDate(String timestamp) {
+    	LocalDateTime fromDateLdt = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
+    	LocalDate fromDateLt = LocalDate.of(fromDateLdt.getYear(), fromDateLdt.getMonthValue(), fromDateLdt.getDayOfMonth());
+    	return fromDateLt;
+    }
 }
