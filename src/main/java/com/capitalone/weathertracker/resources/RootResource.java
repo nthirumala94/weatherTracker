@@ -192,7 +192,26 @@ public class RootResource {
         }
         */
 
-        return NOT_IMPLEMENTED;
+        int status;
+    	
+    	if(isRequestValid(measurement)) {
+    		String newtimestamp = measurement.get("timestamp").asText();
+    		if(newtimestamp.equals(timestamp)) {
+    			Metrics metric = new Metrics(
+    					measurement.get("temperature").floatValue(),
+    					measurement.get("dewPoint").floatValue(),
+    					measurement.get("precipitation").floatValue()
+    					);
+
+    			status = measurementService.patchMeasurement(timestamp, metric);
+    		} else {
+    			status = 409;
+    		}
+    	} else {
+    		status = 400;
+    	}
+    	
+        return Response.status(status).build();
     }
 
     // features/01-measurements/04-delete-measurement.feature
