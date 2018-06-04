@@ -293,9 +293,9 @@ public class RootResource {
             }
         ]
         */
-        System.out.println("To Date TIme " + toDateTime);
-    	LocalDate fromDateLt = WeatherTrackerUtil.convertStringToLocalDateTimeToLocalDate(fromDateTime);
-    	LocalDate toDateLt = WeatherTrackerUtil.convertStringToLocalDateTimeToLocalDate(toDateTime);
+        System.out.println("To Date Time " + toDateTime);
+    	LocalDateTime fromDateLt = WeatherTrackerUtil.convertStringToLocalDate(fromDateTime);
+    	LocalDateTime toDateLt = WeatherTrackerUtil.convertStringToLocalDate(toDateTime);
         StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats), fromDateLt, toDateLt);
     	ArrayList<StatsResponse> response = measurementService.getMeasurementStatistics(request);
         return Response.status(200).entity(response).build();
