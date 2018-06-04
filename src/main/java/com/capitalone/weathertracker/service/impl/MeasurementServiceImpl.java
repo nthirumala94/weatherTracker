@@ -143,7 +143,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 				if (stat.equalsIgnoreCase("min")) {
 					while (statsIterator.hasNext()) {
 					    System.out.println("WeatherData size in stats: " + weatherData.size());
-						Map.Entry<String, Metrics> statsEntry = iterator.next();
+						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
 						switch (metric) {
 							case "temperature":
 								if (statsResp.getValue() > statsEntry.getValue().getTemperature()) {
@@ -167,7 +167,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 				}
 				if (stat.equalsIgnoreCase("max")) {
 					while (statsIterator.hasNext()) {
-						Map.Entry<String, Metrics> statsEntry = iterator.next();
+						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
 						switch (metric) {
 							case "temperature":
 								if (statsResp.getValue() < statsEntry.getValue().getTemperature()) {
@@ -191,7 +191,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 				}
 				if (stat.equalsIgnoreCase("average")) {
 					while (statsIterator.hasNext()) {
-						Map.Entry<String, Metrics> statsEntry = iterator.next();
+						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
 						switch (metric) {
 							case "temperature":
 
