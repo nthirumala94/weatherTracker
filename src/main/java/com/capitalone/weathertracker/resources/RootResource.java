@@ -253,7 +253,11 @@ public class RootResource {
     }
 
     @GET @Path("/stats")
-    public Response getStats(@QueryParam("metric") List<String> metrics, @QueryParam("stat") List<String> stats) {
+    public Response getStats(@QueryParam("metric") List<String> metrics,
+    		@QueryParam("stat") List<String> stats,
+    		@QueryParam("fromDateTime") String fromDateTime,
+    		@QueryParam("toDateTime") String toDateTime
+    		) {
         /* Example:
         metrics := [
             "temperature",
@@ -288,6 +292,8 @@ public class RootResource {
             }
         ]
         */
+    	System.out.println(fromDateTime);
+    	System.out.println(toDateTime);
         StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats));
     	ArrayList<StatsResponse> response = measurementService.getMeasurementStatistics(request);
         return Response.status(200).entity(response).build();
