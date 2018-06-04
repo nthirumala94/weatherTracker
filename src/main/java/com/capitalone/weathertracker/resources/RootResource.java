@@ -158,20 +158,28 @@ public class RootResource {
         }
         */
     	
-    	Metrics metric = new Metrics(
-                measurement.get("temperature").floatValue(),
-                measurement.get("dewPoint").floatValue(),
-                measurement.get("precipitation").floatValue()
-                );
+    	int status;
     	
-    	Metrics m = measurementService.updateMeasurement(timestamp, metric);
+    	if(isRequestValid(measurement)) {
+    		Metrics metric = new Metrics(
+                    measurement.get("temperature").floatValue(),
+                    measurement.get("dewPoint").floatValue(),
+                    measurement.get("precipitation").floatValue()
+                    );
+        	
+        	Metrics m = measurementService.updateMeasurement(timestamp, metric);
+        	
+        	Measurements measurements = new Measurements(timestamp, metric.getTemperature(), metric.getDewPoint(), metric.getPrecipation());
+        	
+        	System.out.println("In Update, the measurements: " + measurements);
+        	Response resp = Response.status(204).entity(measurements).build();
+        	System.out.println("In Update, the response: " + resp);
+        	status = 204;
+    	} else {
+    		status = 400;
+    	}
     	
-    	Measurements measurements = new Measurements(timestamp, metric.getTemperature(), metric.getDewPoint(), metric.getPrecipation());
-    	
-    	System.out.println("In Update, the measurements: " + measurements);
-    	Response resp = Response.status(204).entity(measurements).build();
-    	System.out.println("In Update, the response: " + resp);
-        return Response.status(204).build();
+        return Response.status(status).build();
     }
 
     // features/01-measurements/03-update-measurement.feature
