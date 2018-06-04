@@ -126,7 +126,7 @@ public class MeasurementServiceImpl implements MeasurementService {
  		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
 		while(iterator.hasNext()) {
 			Map.Entry<String, Metrics> entry = iterator.next();
-			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
+			LocalDate localTimestamp = WeatherTrackerUtil.convertStringToLocalDateTimeToLocalDate(entry.getKey());
 			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
 					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
 					&& (localTimestamp.isBefore(statsRequest.getToDateTime())
