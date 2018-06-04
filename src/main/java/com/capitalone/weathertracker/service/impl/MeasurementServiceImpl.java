@@ -273,7 +273,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 		}
 		WeatherTrackerUtil.removeItemIfNull(statsResponseList);
 		
-		Iterator<StatsResponse> statsIterator = statsResponse.iterator();
+		Iterator<StatsResponse> statsIterator = statsResponseList.iterator();
     	while(statsIterator.hasNext()) {
     		StatsResponse resp = statsIterator.next();
     		System.out.println("StatsListInfo: " + resp.getMetric() + ", " + resp.getValue());
