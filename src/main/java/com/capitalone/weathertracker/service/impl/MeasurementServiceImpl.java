@@ -256,10 +256,12 @@ public class MeasurementServiceImpl implements MeasurementService {
 					switch (metric) {
 						case "temperature":
 							if(temperatureCount!=0) temperatureAvg= temperatureAvg/temperatureCount;
+							temperatureAvg = (float) (Math.round(temperatureAvg * 100.0)/100.0);
 							statsResp.setValue(temperatureAvg);
 							break;
 						case "dewPoint":
 							if(dewpointCount!=0) dewpointAvg= dewpointAvg/dewpointCount;
+							dewpointAvg = (float) (Math.round(dewpointAvg * 100.0)/100.0);
 							statsResp.setValue(dewpointAvg);
 							break;
 				// 		case "precipitation":
