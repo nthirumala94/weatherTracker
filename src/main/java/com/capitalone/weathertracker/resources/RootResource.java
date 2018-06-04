@@ -52,14 +52,25 @@ public class RootResource {
         try {
         LocalDateTime timeStamp = WeatherTrackerUtil.convertStringToLocalDate(measurement.get("timestamp").asText());
         
-        if(!isRequestValid(measurement)) {
+        boolean isValidRequest = true;
+    	if(measurement.get("temperature") != null) {
+    		isValidRequest = isValidRequest && isFloatCheck(measurement.get("temperature").asText());
+    	}
+    	if(measurement.get("dewPoint") != null) {
+    		isValidRequest = isValidRequest && isFloatCheck(measurement.get("dewPoint").asText());
+    	}
+    	if(measurement.get("precipitation") != null) {
+    		isValidRequest = isValidRequest && isFloatCheck(measurement.get("precipitation").asText());
+    	}
+        
+        if(!isValidRequest) {
             return Response.status(400).build();
         }
         
         Metrics metric = new Metrics(
-            measurement.get("temperature").floatValue(),
-            measurement.get("dewPoint").floatValue(),
-            measurement.get("precipitation").floatValue()
+        		convertNullToFloat(measurement.get("temperature")),
+				convertNullToFloat(measurement.get("dewPoint")),
+				convertNullToFloat(measurement.get("precipitation"))
             );
         
         measurementService.addMeasurement(measurement.get("timestamp").asText(), metric);
