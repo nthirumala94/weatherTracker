@@ -100,15 +100,15 @@ public class MeasurementServiceImpl implements MeasurementService {
     public int patchMeasurement(String timestamp, Metrics metrics) {
     	if(weatherData.containsKey(timestamp)) {
     		Metrics oldMetric = weatherData.get(timestamp);
-    		if(metrics.getPrecipation() != 0) {
+    		if(metrics.getPrecipation() != Float.MIN_VALUE) {
     			oldMetric.setPrecipation(metrics.getPrecipation());
     		}
     		
-    		if(metrics.getDewPoint() != 0) {
+    		if(metrics.getDewPoint() != Float.MIN_VALUE) {
     			oldMetric.setDewPoint(metrics.getDewPoint());
     		}
     		
-    		if(metrics.getTemperature() != 0) {
+    		if(metrics.getTemperature() != Float.MIN_VALUE) {
     			oldMetric.setTemperature(metrics.getTemperature());
     		}
     		weatherData.put(timestamp, oldMetric);
