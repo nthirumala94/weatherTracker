@@ -293,6 +293,7 @@ public class RootResource {
             }
         ]
         */
+        System.out.println("To Date TIme " + toDateTime);
     	LocalDate fromDateLt = WeatherTrackerUtil.convertStringToLocalDateTimeToLocalDate(fromDateTime);
     	LocalDate toDateLt = WeatherTrackerUtil.convertStringToLocalDateTimeToLocalDate(toDateTime);
         StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats), fromDateLt, toDateLt);
