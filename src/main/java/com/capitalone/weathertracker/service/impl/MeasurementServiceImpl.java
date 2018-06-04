@@ -134,6 +134,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 //				weatherDataForStats.put(entry.getKey(),entry.getValue());
 //			}
 //		}
+        System.out.println("WeatherData in getMeasurementStats: " + weatherData);
     	for(String metric : statsRequest.getMetric()){
 			for(String stat : statsRequest.getStats()) {
 				StatsResponse statsResp = new StatsResponse();
