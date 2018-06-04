@@ -271,6 +271,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 				statsResponseList.add(statsResp);
 			}
 		}
+		WeatherTrackerUtil.removeItemIfNull(statsResponseList);
     	return statsResponseList;
 	}
 }
