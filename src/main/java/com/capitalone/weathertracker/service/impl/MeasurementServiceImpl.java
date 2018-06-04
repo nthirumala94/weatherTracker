@@ -148,7 +148,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 				statsResp.setStat(stat);
 				
 				
-				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherData.entrySet().iterator();
+				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherDataForStats.entrySet().iterator();
 				if (stat.equalsIgnoreCase("min")) {
 					while (statsIterator.hasNext()) {
 						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
