@@ -85,4 +85,10 @@ public class MeasurementServiceImpl implements MeasurementService {
     public Metrics deleteMeasurement(String timestamp) {
     	return weatherData.remove(timestamp);
     }
+    
+    @Override
+    public Metrics updateMeasurement(String timestamp, Metrics metrics) {
+    	weatherData.put(timestamp, metrics);
+    	return weatherData.get(timestamp);
+    }
 }
