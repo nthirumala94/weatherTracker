@@ -123,7 +123,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 
 		ArrayList<StatsResponse> statsResponseList = new ArrayList<StatsResponse>();
 //		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
-		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
+// 		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
 //		while(iterator.hasNext()) {
 //			Map.Entry<String, Metrics> entry = iterator.next();
 //			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
