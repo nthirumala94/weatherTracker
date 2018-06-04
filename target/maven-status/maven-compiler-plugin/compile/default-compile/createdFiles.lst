@@ -8,3 +8,4 @@ com/capitalone/weathertracker/util/WeatherTrackerUtil$1.class
 com/capitalone/weathertracker/model/StatsRequest.class
 com/capitalone/weathertracker/service/impl/MeasurementServiceImpl.class
 com/capitalone/weathertracker/model/Metrics.class
+com/capitalone/weathertracker/model/StatsResponse.class

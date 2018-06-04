@@ -117,4 +117,96 @@ public class MeasurementServiceImpl implements MeasurementService {
     		return 404;
     	}
     }
+    
+    @Override
+	public ArrayList<StatsResponse> getMeasurementStatistics(StatsRequest statsRequest) {
+
+		ArrayList<StatsResponse> statsResponseList = new ArrayList<StatsResponse>();
+		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
+		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Map.Entry<String, Metrics> entry = iterator.next();
+			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
+			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
+					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
+					&& (localTimestamp.isEqual(statsRequest.getToDateTime())
+					|| localTimestamp.isAfter(statsRequest.getToDateTime()))) {
+				weatherDataForStats.put(entry.getKey(),entry.getValue());
+			}
+		}
+    	for(String metric : statsRequest.getMetric()){
+			for(String stat : statsRequest.getStats()) {
+				StatsResponse statsResp = new StatsResponse();
+				statsResp.setMetric(metric);
+				statsResp.setStat(stat);
+				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherDataForStats.entrySet().iterator();
+				if (stat.equalsIgnoreCase("min")) {
+					while (statsIterator.hasNext()) {
+						Map.Entry<String, Metrics> statsEntry = iterator.next();
+						switch (metric) {
+							case "temperature":
+								if (statsResp.getValue() > statsEntry.getValue().getTemperature()) {
+									statsResp.setValue(statsEntry.getValue().getTemperature());
+								}
+								break;
+							case "dewPoint":
+								if (statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
+									statsResp.setValue(statsEntry.getValue().getDewPoint());
+								}
+								break;
+							case "precipitation":
+								if (statsResp.getValue() > statsEntry.getValue().getPrecipation()) {
+									statsResp.setValue(statsEntry.getValue().getPrecipation());
+								}
+								break;
+							default:
+								break;
+						}
+					}
+				}
+				if (stat.equalsIgnoreCase("max")) {
+					while (statsIterator.hasNext()) {
+						Map.Entry<String, Metrics> statsEntry = iterator.next();
+						switch (metric) {
+							case "temperature":
+								if (statsResp.getValue() < statsEntry.getValue().getTemperature()) {
+									statsResp.setValue(statsEntry.getValue().getTemperature());
+								}
+								break;
+							case "dewPoint":
+								if (statsResp.getValue() < statsEntry.getValue().getDewPoint()) {
+									statsResp.setValue(statsEntry.getValue().getDewPoint());
+								}
+								break;
+							case "precipitation":
+								if (statsResp.getValue() < statsEntry.getValue().getPrecipation()) {
+									statsResp.setValue(statsEntry.getValue().getPrecipation());
+								}
+								break;
+							default:
+								break;
+						}
+					}
+				}
+				if (stat.equalsIgnoreCase("average")) {
+					while (statsIterator.hasNext()) {
+						Map.Entry<String, Metrics> statsEntry = iterator.next();
+						switch (metric) {
+							case "temperature":
+
+								break;
+							case "dewPoint":
+								break;
+							case "precipitation":
+								break;
+							default:
+								break;
+						}
+					}
+				}
+				statsResponseList.add(statsResp);
+			}
+		}
+    	return null;
+	}
 }
