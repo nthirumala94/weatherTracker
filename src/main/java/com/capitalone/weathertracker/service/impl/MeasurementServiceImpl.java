@@ -27,14 +27,9 @@ public class MeasurementServiceImpl implements MeasurementService {
     
     @Override
     public ArrayList<Measurements> getMeasurement(String timestamp) {
-        System.out.println("Entering getMeasurement: " + timestamp);
-        System.out.println("Entering getMeasurement size of weatherDate: " + weatherData.size());
         ArrayList<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
-            LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
-            
 			Metrics metricData = weatherData.get(timestamp);
-			
 			if(metricData != null) {
 			    Measurements m = new Measurements(
 			        timestamp,
@@ -45,24 +40,20 @@ public class MeasurementServiceImpl implements MeasurementService {
 			    result.add(m);
 			}
 		} else {
-		    System.out.println("Entering Else, weatherData size" + weatherData.size());
 		    Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
 		        Map.Entry<String, Metrics> entry = iterator.next();
-		        System.out.println("Entry Key in loop: " + entry.getKey());
 		        String[] entryKeySplit = entry.getKey().split("(?:-|T)");
 		        
 		        int year = Integer.parseInt(entryKeySplit[0]);
 		        int month = Integer.parseInt(entryKeySplit[1]);
 		        int day = Integer.parseInt(entryKeySplit[2]);
-		        System.out.println("Year : " + year + " month " + month + " day " + day);
 		        
 		        if(year == localTimestamp.getYear() &&
 		        month == localTimestamp.getMonth().getValue() &&
 		        day == localTimestamp.getDayOfMonth()
 		        ) {
-		            System.out.println("Match found");
 		            Measurements m = new Measurements(
 			        entry.getKey(),
 			        entry.getValue().getTemperature(),
@@ -73,7 +64,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        }
 		    }
 		}
-		System.out.println("Total results size: " + result.size());
 		WeatherTrackerUtil.sortMeasurementList(result);
 		for (Measurements object: result) {
             System.out.println(object);
@@ -127,9 +117,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 		while(iterator.hasNext()) {
 			Map.Entry<String, Metrics> entry = iterator.next();
 			LocalDateTime localTimestamp = WeatherTrackerUtil.convertStringToLocalDate(entry.getKey());
-			System.out.println("Local Time Stamp " + localTimestamp);
-			System.out.println("fromDateTime " + statsRequest.getFromDateTime());
-			System.out.println("toDateTime " + statsRequest.getToDateTime());
 			
 			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
 					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
@@ -138,8 +125,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 				weatherDataForStats.put(entry.getKey(),entry.getValue());
 			}
 		}
-		
-		System.out.println("Inside stats: weatherDataStats size: " + weatherDataForStats.size());
 		
     	for(String metric : statsRequest.getMetric()){
 			for(String stat : statsRequest.getStats()) {
@@ -166,21 +151,21 @@ public class MeasurementServiceImpl implements MeasurementService {
 								if(statsResp.getValue() == 0.0f) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
-
-								if (statsEntry.getValue().getDewPoint() != 0.0f && statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
+								if (statsEntry.getValue().getDewPoint() != 0.0f &&
+										statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
 
 								break;
-				// 			case "precipitation":
-				// 				if(statsResp.getValue() == 0.0f) {
-				// 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				// 				}
-
-				// 				if (statsEntry.getValue().getPrecipation() != 0.0f && statsResp.getValue() > statsEntry.getValue().getPrecipation()) {
-				// 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				// 				}
-				// 				break;
+				 			case "precipitation":
+				 				if(statsResp.getValue() == 0.0f) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				if (statsEntry.getValue().getPrecipation() != 0.0f &&
+				 						statsResp.getValue() > statsEntry.getValue().getPrecipation()) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				break;
 							default:
 								break;
 						}
@@ -194,7 +179,8 @@ public class MeasurementServiceImpl implements MeasurementService {
 								if(statsResp.getValue() == 0.0f) {
 									statsResp.setValue(statsEntry.getValue().getTemperature());
 								}
-								if (statsEntry.getValue().getTemperature() != 0.0f && statsResp.getValue() < statsEntry.getValue().getTemperature()) {
+								if (statsEntry.getValue().getTemperature() != 0.0f &&
+										statsResp.getValue() < statsEntry.getValue().getTemperature()) {
 									statsResp.setValue(statsEntry.getValue().getTemperature());
 								}
 								break;
@@ -202,19 +188,20 @@ public class MeasurementServiceImpl implements MeasurementService {
 								if(statsResp.getValue() == 0.0f) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
-
-								if (statsEntry.getValue().getDewPoint() != 0.0f && statsResp.getValue() < statsEntry.getValue().getDewPoint()) {
+								if (statsEntry.getValue().getDewPoint() != 0.0f &&
+										statsResp.getValue() < statsEntry.getValue().getDewPoint()) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
 								break;
-				// 			case "precipitation":
-				// 				if(statsResp.getValue() == 0.0f) {
-				// 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				// 				}
-				// 				if (statsEntry.getValue().getPrecipation() != 0.0f && statsResp.getValue() < statsEntry.getValue().getPrecipation()) {
-				// 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				// 				}
-				// 				break;
+				 			case "precipitation":
+				 				if(statsResp.getValue() == 0.0f) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				if (statsEntry.getValue().getPrecipation() != 0.0f &&
+				 						statsResp.getValue() < statsEntry.getValue().getPrecipation()) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				break;
 							default:
 								break;
 						}
@@ -243,12 +230,12 @@ public class MeasurementServiceImpl implements MeasurementService {
 									dewpointCount ++;
 								}
 								break;
-				// 			case "precipitation":
-				// 				if(statsEntry.getValue().getPrecipation() != 0.0f){
-				// 					precipAvg=	precipAvg + statsEntry.getValue().getPrecipation();
-				// 					precipCount ++;
-				// 				}
-				// 				break;
+				 			case "precipitation":
+				 				if(statsEntry.getValue().getPrecipation() != 0.0f){
+				 					precipAvg=	precipAvg + statsEntry.getValue().getPrecipation();
+				 					precipCount ++;
+				 				}
+				 				break;
 							default:
 								break;
 						}
@@ -264,23 +251,16 @@ public class MeasurementServiceImpl implements MeasurementService {
 							dewpointAvg = (float) (Math.round(dewpointAvg * 100.0)/100.0);
 							statsResp.setValue(dewpointAvg);
 							break;
-				// 		case "precipitation":
-				// 			if(precipCount!=0) precipAvg= precipAvg/precipCount;
-				// 			statsResp.setValue(dewpointAvg);
-				// 			break;
+				 		case "precipitation":
+				 			if(precipCount!=0) precipAvg= precipAvg/precipCount;
+				 			statsResp.setValue(dewpointAvg);
+				 			break;
 					}
 				}
 				statsResponseList.add(statsResp);
 			}
 		}
 		WeatherTrackerUtil.removeItemIfNull(statsResponseList);
-		
-		Iterator<StatsResponse> statsIterator = statsResponseList.iterator();
-    	while(statsIterator.hasNext()) {
-    		StatsResponse resp = statsIterator.next();
-    		System.out.println("StatsListInfo: " + resp.getMetric() + ", " + resp.getStat() + ", " + resp.getValue());
-    	}
-		
     	return statsResponseList;
 	}
 }
