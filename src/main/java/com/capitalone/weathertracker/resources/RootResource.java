@@ -193,8 +193,18 @@ public class RootResource {
         */
 
         int status;
+    	boolean isValidRequest = true;
+    	if(measurement.get("temperature") != null) {
+    		isValidRequest = isValidRequest && isFloatCheck(measurement.get("temperature").asText());
+    	}
+    	if(measurement.get("dewPoint") != null) {
+    		isValidRequest = isValidRequest && isFloatCheck(measurement.get("dewPoint").asText());
+    	}
+    	if(measurement.get("precipitation") != null) {
+    		isValidRequest = isValidRequest && isFloatCheck(measurement.get("precipitation").asText());
+    	}
     	
-    	if(isRequestValidPatch(measurement)) {
+    	if(isValidRequest) {
     		String newtimestamp = measurement.get("timestamp").asText();
     		if(newtimestamp.equals(timestamp)) {
     			Metrics metric = new Metrics(
