@@ -95,4 +95,26 @@ public class MeasurementServiceImpl implements MeasurementService {
     		return 404;
     	}
     }
+    
+    @Override
+    public int patchMeasurement(String timestamp, Metrics metrics) {
+    	if(weatherData.containsKey(timestamp)) {
+    		Metrics oldMetric = weatherData.get(timestamp);
+    		if(metrics.getPrecipation() != 0) {
+    			oldMetric.setPrecipation(metrics.getPrecipation());
+    		}
+    		
+    		if(metrics.getDewPoint() != 0) {
+    			oldMetric.setDewPoint(metrics.getDewPoint());
+    		}
+    		
+    		if(metrics.getTemperature() != 0) {
+    			oldMetric.setTemperature(metrics.getTemperature());
+    		}
+    		weatherData.put(timestamp, oldMetric);
+    		return 204;
+    	} else {
+    		return 404;
+    	}
+    }
 }
