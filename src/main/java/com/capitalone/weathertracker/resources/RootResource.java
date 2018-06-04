@@ -254,8 +254,6 @@ public class RootResource {
 
     @GET @Path("/stats")
     public Response getStats(@QueryParam("metric") List<String> metrics, @QueryParam("stat") List<String> stats) {
-        StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats));
-    	ArrayList<StatsResponse> response = measurementService.getMeasurementStatistics(request);
         /* Example:
         metrics := [
             "temperature",
@@ -290,7 +288,8 @@ public class RootResource {
             }
         ]
         */
-
+        StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats));
+    	ArrayList<StatsResponse> response = measurementService.getMeasurementStatistics(request);
         return Response.status(200).entity(response).build();
     }
     
