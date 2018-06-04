@@ -10,4 +10,5 @@ public interface MeasurementService {
      Metrics deleteMeasurement(String timestamp);
      int updateMeasurement(String timestamp, Metrics metrics);
      int patchMeasurement(String timestamp, Metrics metrics);
+     ArrayList<StatsResponse> getMeasurementStatistics(StatsRequest statsRequest);
 }
