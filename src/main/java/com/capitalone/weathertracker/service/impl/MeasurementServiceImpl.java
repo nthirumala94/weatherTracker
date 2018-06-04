@@ -155,13 +155,18 @@ public class MeasurementServiceImpl implements MeasurementService {
 								}
 								break;
 							case "dewPoint":
+								System.out.println("StatsEntry1: " + statsEntry.getValue().getDewPoint());
+								System.out.println("StatusResponse1: " + statsResp.getValue());
 								if(statsResp.getValue() == 0.0f) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
+								System.out.println("StatsEntry2: " + statsEntry.getValue().getDewPoint());
+								System.out.println("StatusResponse2: " + statsResp.getValue());
 								if (statsEntry.getValue().getDewPoint() != Float.MIN_VALUE && statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
-								break;
+								System.out.println("StatsEntry3: " + statsEntry.getValue().getDewPoint());
+								System.out.println("StatusResponse3: " + statsResp.getValue());
 							case "precipitation":
 								if(statsResp.getValue() == 0.0f) {
 									statsResp.setValue(statsEntry.getValue().getPrecipation());
