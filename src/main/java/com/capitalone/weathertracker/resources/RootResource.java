@@ -292,8 +292,8 @@ public class RootResource {
             }
         ]
         */
-    	System.out.println(fromDateTime);
-    	System.out.println(toDateTime);
+    	System.out.println("Here is the fromDateTime" + fromDateTime);
+    	System.out.println("Here is the toDateTime" + toDateTime);
         StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats));
     	ArrayList<StatsResponse> response = measurementService.getMeasurementStatistics(request);
         return Response.status(200).entity(response).build();
