@@ -1,3 +1,4 @@
+/home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/model/StatsResponse.java
 /home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/model/Measurements.java
 /home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/resources/RootResource.java
 /home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/AppServer.java
@@ -5,4 +6,5 @@
 /home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/service/MeasurementService.java
 /home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/service/impl/MeasurementServiceImpl.java
 /home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/model/Metrics.java
+/home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/model/StatsRequest.java
 /home/ubuntu/fullstack/project/src/main/java/com/capitalone/weathertracker/annotations/PATCH.java
