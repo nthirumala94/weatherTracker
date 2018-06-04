@@ -207,6 +207,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 				statsResponseList.add(statsResp);
 			}
 		}
-    	return null;
+    	return statsResponseList;
 	}
 }
