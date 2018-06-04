@@ -221,19 +221,51 @@ public class MeasurementServiceImpl implements MeasurementService {
 					}
 				}
 				if (stat.equalsIgnoreCase("average")) {
+					float temperatureAvg = 0.0f;
+					int temperatureCount=0;
+					float dewpointAvg = 0.0f;
+					int dewpointCount=0;
+					float precipAvg = 0.0f;
+					int precipCount=0;
+
 					while (statsIterator.hasNext()) {
 						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
 						switch (metric) {
 							case "temperature":
-							    
+							    if(statsEntry.getValue().getTemperature() != 0.0f){
+									temperatureAvg=	temperatureAvg + statsEntry.getValue().getTemperature();
+									temperatureCount ++;
+								}
 								break;
 							case "dewPoint":
+								if(statsEntry.getValue().getDewPoint() != 0.0f){
+									dewpointAvg=	dewpointAvg + statsEntry.getValue().getDewPoint();
+									dewpointCount ++;
+								}
 								break;
 							case "precipitation":
+								if(statsEntry.getValue().getPrecipation() != 0.0f){
+									precipAvg=	precipAvg + statsEntry.getValue().getPrecipation();
+									precipCount ++;
+								}
 								break;
 							default:
 								break;
 						}
+					}
+					switch (metric) {
+						case "temperature":
+							if(temperatureCount!=0) temperatureAvg= temperatureAvg/temperatureCount;
+							statsResp.setValue(temperatureAvg);
+							break;
+						case "dewPoint":
+							if(dewpointCount!=0) dewpointAvg= dewpointAvg/dewpointCount;
+							statsResp.setValue(dewpointAvg);
+							break;
+						case "precipitation":
+							if(precipCount!=0) precipAvg= precipAvg/precipCount;
+							statsResp.setValue(dewpointAvg);
+							break;
 					}
 				}
 				statsResponseList.add(statsResp);
