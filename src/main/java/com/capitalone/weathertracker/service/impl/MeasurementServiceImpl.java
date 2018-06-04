@@ -87,8 +87,12 @@ public class MeasurementServiceImpl implements MeasurementService {
     }
     
     @Override
-    public Metrics updateMeasurement(String timestamp, Metrics metrics) {
-    	weatherData.put(timestamp, metrics);
-    	return weatherData.get(timestamp);
+    public int updateMeasurement(String timestamp, Metrics metrics) {
+    	if(weatherData.containsKey(timestamp)) {
+    		weatherData.put(timestamp, metrics);
+        	return 204;
+    	} else {
+    		return 404;
+    	}
     }
 }
