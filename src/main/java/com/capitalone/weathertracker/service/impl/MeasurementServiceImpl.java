@@ -139,22 +139,33 @@ public class MeasurementServiceImpl implements MeasurementService {
 				StatsResponse statsResp = new StatsResponse();
 				statsResp.setMetric(metric);
 				statsResp.setStat(stat);
+				
+				
 				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherData.entrySet().iterator();
 				if (stat.equalsIgnoreCase("min")) {
 					while (statsIterator.hasNext()) {
 						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
 						switch (metric) {
 							case "temperature":
+								if(statsResp.getValue() == 0.0f) {
+									statsResp.setValue(statsEntry.getValue().getTemperature());
+								}
 								if (statsResp.getValue() > statsEntry.getValue().getTemperature()) {
 									statsResp.setValue(statsEntry.getValue().getTemperature());
 								}
 								break;
 							case "dewPoint":
+								if(statsResp.getValue() == 0.0f) {
+									statsResp.setValue(statsEntry.getValue().getDewPoint());
+								}
 								if (statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
 								break;
 							case "precipitation":
+								if(statsResp.getValue() == 0.0f) {
+									statsResp.setValue(statsEntry.getValue().getPrecipation());
+								}
 								if (statsResp.getValue() > statsEntry.getValue().getPrecipation()) {
 									statsResp.setValue(statsEntry.getValue().getPrecipation());
 								}
