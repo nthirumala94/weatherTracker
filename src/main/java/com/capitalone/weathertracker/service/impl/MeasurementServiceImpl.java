@@ -122,25 +122,21 @@ public class MeasurementServiceImpl implements MeasurementService {
 	public ArrayList<StatsResponse> getMeasurementStatistics(StatsRequest statsRequest) {
 
 		ArrayList<StatsResponse> statsResponseList = new ArrayList<StatsResponse>();
-//		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
-// 		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
-//		while(iterator.hasNext()) {
-//			Map.Entry<String, Metrics> entry = iterator.next();
-//			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
-//			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
-//					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
-//					&& (localTimestamp.isEqual(statsRequest.getToDateTime())
-//					|| localTimestamp.isAfter(statsRequest.getToDateTime()))) {
-//				weatherDataForStats.put(entry.getKey(),entry.getValue());
-//			}
-//		}
-// 		Iterator it = weatherData.entrySet().iterator();
-//         while (it.hasNext()) {
-//         Map.Entry<String, Metrics> pair = (Map.Entry<String, Metrics>)it.next();
-//         System.out.println("In weatherData" + pair.getKey() + " = " +
-//         pair.getValue().getTemperature() + ", " + pair.getValue().getDewPoint() + ", " + pair.getValue().getPrecipation());
-//         it.remove(); // avoids a ConcurrentModificationException
-//         }
+		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
+ 		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Map.Entry<String, Metrics> entry = iterator.next();
+			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
+			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
+					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
+					&& (localTimestamp.isBefore(statsRequest.getToDateTime())
+					)) {
+				weatherDataForStats.put(entry.getKey(),entry.getValue());
+			}
+		}
+		
+		System.out.println("Inside stats: weatherDataStats size: " + weatherDataForStats.size());
+		
     	for(String metric : statsRequest.getMetric()){
 			for(String stat : statsRequest.getStats()) {
 				StatsResponse statsResp = new StatsResponse();
