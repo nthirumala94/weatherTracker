@@ -6,25 +6,39 @@ import com.capitalone.weathertracker.model.*;
 import java.util.*;
 import com.capitalone.weathertracker.util.WeatherTrackerUtil;
 
+/**
+ * This is implementation of main Service class, it contains the implementation of all the required end points
+ */
 public class MeasurementServiceImpl implements MeasurementService {
     
     private static MeasurementServiceImpl measurementServiceImpl = new MeasurementServiceImpl();
     
-    private MeasurementServiceImpl() {}
+    private MeasurementServiceImpl() {} // Private constructor to make the class a Singleton
     
-    private Map<String, Metrics> weatherData = new LinkedHashMap<>();
+    private Map<String, Metrics> weatherData = new LinkedHashMap<>(); // The Map which will contain all the data entered during execution
     
+    /**
+     * This will return a static MeasurementServiceImpl
+     * Note - There could have been a better way to create a singleton using Jersey or Jax-Rs.
+     * However due to lack to time had to create a singleton using the traditional method.
+     * @return MeasurementServiceImpl which is a singleton
+     */
     public static MeasurementServiceImpl getInstance() {
       return measurementServiceImpl;
    }
-    
+    /**
+     * This method contains the main implementation of add measurement feature
+     * it will add a timestamp and associated metrics in Internal database
+     */
     @Override
     public void addMeasurement(String timestamp, Metrics metrics) {
-        System.out.println("Here is the timestamp: " + timestamp + ", metrics" + metrics);
         weatherData.put(timestamp, metrics);
-        System.out.println("Size of weatherDate in addMeasurement" + weatherData.size());
     }
     
+    /**
+     * This method contains the main implementation of get measurement feature
+     * it will get information based on a particular timestamp or a date
+     */
     @Override
     public ArrayList<Measurements> getMeasurement(String timestamp) {
         ArrayList<Measurements> result = new ArrayList<>();
@@ -71,11 +85,19 @@ public class MeasurementServiceImpl implements MeasurementService {
         return result;
     }
     
+    /**
+     * This method contains the main implementation of delete measurement feature
+     * it will delete information based on a timestamp
+     */
     @Override
     public Metrics deleteMeasurement(String timestamp) {
     	return weatherData.remove(timestamp);
     }
     
+    /**
+     * This method contains the main implementation of update measurement feature
+     * it will update information related to metrics based on a particular timestamp
+     */
     @Override
     public int updateMeasurement(String timestamp, Metrics metrics) {
     	if(weatherData.containsKey(timestamp)) {
@@ -86,6 +108,10 @@ public class MeasurementServiceImpl implements MeasurementService {
     	}
     }
     
+    /**
+     * This method contains the main implementation of update measurement feature
+     * it will patch information related to metrics based on a particular timestamp
+     */
     @Override
     public int patchMeasurement(String timestamp, Metrics metrics) {
     	if(weatherData.containsKey(timestamp)) {
@@ -108,6 +134,10 @@ public class MeasurementServiceImpl implements MeasurementService {
     	}
     }
     
+    /**
+     * This method contains the main implementation of stats measurement feature
+     * it will retrieve stats information related to metrics between particular timestamps
+     */
     @Override
 	public ArrayList<StatsResponse> getMeasurementStatistics(StatsRequest statsRequest) {
 
