@@ -169,8 +169,9 @@ public class RootResource {
     	Measurements measurements = new Measurements(timestamp, metric.getTemperature(), metric.getDewPoint(), metric.getPrecipation());
     	
     	System.out.println("In Update, the measurements: " + measurements);
-
-        return Response.status(204).entity(measurements).build();
+    	Response resp = Response.status(204).entity(measurements).build();
+    	System.out.println("In Update, the response: " + resp);
+        return Response.status(204).build();
     }
 
     // features/01-measurements/03-update-measurement.feature
