@@ -1,4 +1,3 @@
-
 Feature: Get measurement statistics
   In order to understand trends of measurements
   I want to be able to get statistics over specified periods of time
@@ -13,6 +12,7 @@ Feature: Get measurement statistics
       | "2015-09-01T16:40:00.000Z" | 27.2        |          |
       | "2015-09-01T17:00:00.000Z" | 28.1        | 18.3     |
 
+  @points=9
   Scenario: Get stats for a well-reported metric
     # GET /stats?<params...>
     When I get stats with parameters:
@@ -30,6 +30,7 @@ Feature: Get measurement statistics
       | "temperature" | "max"     | 27.5  |
       | "temperature" | "average" | 27.3  |
 
+  @points=10
   Scenario: Get stats for a sparsely reported metric
      # GET /stats?<params...>
     When I get stats with parameters:
@@ -47,6 +48,7 @@ Feature: Get measurement statistics
       | "dewPoint" | "max"     | 17.3  |
       | "dewPoint" | "average" | 17.1  |
 
+  @points=3
   Scenario: Get stats for a metric that has never been reported
      # GET /stats?<params...>
     When I get stats with parameters:
@@ -60,6 +62,7 @@ Feature: Get measurement statistics
     Then the response has a status code of 200
     And the response body is an empty array
 
+  @points=11
   Scenario: Get stats for more than one metric
     # GET /stats?<params...>
     When I get stats with parameters:
