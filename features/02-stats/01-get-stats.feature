@@ -5,13 +5,13 @@ Feature: Get measurement statistics
 
   Background:
     Given I have submitted new measurements as follows:
-      | timestamp                  | temperature | dewPoint |
-      | "2015-09-01T16:00:00.000Z" | 27.1        | 16.9     |
-      | "2015-09-01T16:10:00.000Z" | 27.3        |          |
-      | "2015-09-01T16:20:00.000Z" | 27.5        | 17.1     |
-      | "2015-09-01T16:30:00.000Z" | 27.4        | 17.3     |
-      | "2015-09-01T16:40:00.000Z" | 27.2        |          |
-      | "2015-09-01T17:00:00.000Z" | 28.1        | 18.3     |
+      | timestamp                  | temperature | dewPoint | precipitation
+      | "2015-09-01T16:00:00.000Z" | 27.1        | 16.9     | 10.0
+      | "2015-09-01T16:10:00.000Z" | 27.3        |          | 9.0
+      | "2015-09-01T16:20:00.000Z" | 27.5        | 17.1     | 8.0
+      | "2015-09-01T16:30:00.000Z" | 27.4        | 17.3     | 7.0
+      | "2015-09-01T16:40:00.000Z" | 27.2        |          | 15.0
+      | "2015-09-01T17:00:00.000Z" | 28.1        | 18.3     | 6.0
 
   Scenario: Get stats for a well-reported metric
     # GET /stats?<params...>
@@ -81,3 +81,6 @@ Feature: Get measurement statistics
       | "dewPoint"    | "min"     | 16.9  |
       | "dewPoint"    | "max"     | 17.3  |
       | "dewPoint"    | "average" | 17.1  |
+      |"precipitation"| "min"     | 7.0   |
+      |"precipitation"| "max"     | 15.0  |
+      |"precipitation"| "average" | 9.8   |
