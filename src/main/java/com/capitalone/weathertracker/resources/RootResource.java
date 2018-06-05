@@ -13,6 +13,7 @@ import java.net.URI;
 import com.capitalone.weathertracker.service.MeasurementService;
 import com.capitalone.weathertracker.service.impl.MeasurementServiceImpl;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import com.capitalone.weathertracker.model.*;
 import java.lang.Exception;
@@ -253,7 +254,11 @@ public class RootResource {
     }
 
     @GET @Path("/stats")
-    public Response getStats(@QueryParam("metric") List<String> metrics, @QueryParam("stat") List<String> stats) {
+    public Response getStats(@QueryParam("metric") List<String> metrics,
+    		@QueryParam("stat") List<String> stats,
+    		@QueryParam("fromDateTime") String fromDateTime,
+    		@QueryParam("toDateTime") String toDateTime
+    		) {
         /* Example:
         metrics := [
             "temperature",
@@ -288,7 +293,10 @@ public class RootResource {
             }
         ]
         */
-        StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats));
+        System.out.println("To Date Time " + toDateTime);
+    	LocalDateTime fromDateLt = WeatherTrackerUtil.convertStringToLocalDate(fromDateTime);
+    	LocalDateTime toDateLt = WeatherTrackerUtil.convertStringToLocalDate(toDateTime);
+        StatsRequest request = new StatsRequest(new ArrayList<>(metrics), new ArrayList<>(stats), fromDateLt, toDateLt);
     	ArrayList<StatsResponse> response = measurementService.getMeasurementStatistics(request);
         return Response.status(200).entity(response).build();
     }

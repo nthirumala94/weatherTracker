@@ -1,12 +1,15 @@
 package com.capitalone.weathertracker.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 
 import com.capitalone.weathertracker.model.Measurements;
+import com.capitalone.weathertracker.model.StatsResponse;
 
 public class WeatherTrackerUtil {
     
@@ -30,5 +33,21 @@ public class WeatherTrackerUtil {
     	        return m1.getTimestamp().compareTo(m2.getTimestamp());
     	    }
     	});
+    }
+    
+    public static LocalDate convertStringToLocalDateTimeToLocalDate(String timestamp) {
+    	LocalDateTime fromDateLdt = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
+    	LocalDate fromDateLt = LocalDate.of(fromDateLdt.getYear(), fromDateLdt.getMonthValue(), fromDateLdt.getDayOfMonth());
+    	return fromDateLt;
+    }
+    
+    public static void removeItemIfNull(ArrayList<StatsResponse> statsResponse) {
+    	Iterator<StatsResponse> statsIterator = statsResponse.iterator();
+    	while(statsIterator.hasNext()) {
+    		StatsResponse resp = statsIterator.next();
+    		if(resp.getValue() == 0) {
+    			statsIterator.remove();
+    		}
+    	}
     }
 }

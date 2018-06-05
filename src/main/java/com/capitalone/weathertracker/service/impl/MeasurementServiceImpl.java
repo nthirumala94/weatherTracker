@@ -6,35 +6,44 @@ import com.capitalone.weathertracker.model.*;
 import java.util.*;
 import com.capitalone.weathertracker.util.WeatherTrackerUtil;
 
+/**
+ * This is implementation of main Service class, it contains the implementation of all the required end points
+ */
 public class MeasurementServiceImpl implements MeasurementService {
     
     private static MeasurementServiceImpl measurementServiceImpl = new MeasurementServiceImpl();
     
-    private MeasurementServiceImpl() {}
+    private MeasurementServiceImpl() {} // Private constructor to make the class a Singleton
     
-    private Map<String, Metrics> weatherData = new LinkedHashMap<>();
+    private Map<String, Metrics> weatherData = new LinkedHashMap<>(); // The Map which will contain all the data entered during execution
     
+    /**
+     * This will return a static MeasurementServiceImpl
+     * Note - There could have been a better way to create a singleton using Jersey or Jax-Rs. 
+     * However due to lack to time had to create a singleton using the traditional method.
+     * @return MeasurementServiceImpl which is a singleton
+     */
     public static MeasurementServiceImpl getInstance() {
       return measurementServiceImpl;
    }
-    
+    /**
+     * This method contains the main implementation of add measurement feature
+     * it will add a timestamp and associated metrics in Internal database
+     */
     @Override
     public void addMeasurement(String timestamp, Metrics metrics) {
-        System.out.println("Here is the timestamp: " + timestamp + ", metrics" + metrics);
         weatherData.put(timestamp, metrics);
-        System.out.println("Size of weatherDate in addMeasurement" + weatherData.size());
     }
     
+    /**
+     * This method contains the main implementation of get measurement feature
+     * it will get information based on a particular timestamp or a date
+     */
     @Override
     public ArrayList<Measurements> getMeasurement(String timestamp) {
-        System.out.println("Entering getMeasurement: " + timestamp);
-        System.out.println("Entering getMeasurement size of weatherDate: " + weatherData.size());
         ArrayList<Measurements> result = new ArrayList<>();
         if(timestamp.toString().length() > 10) {
-            LocalDateTime dateTimestamp = WeatherTrackerUtil.convertStringToLocalDate(timestamp);
-            
-			Metrics metricData = weatherData.get(timestamp);
-			
+			Metrics metricData = weatherData.get(timestamp);		
 			if(metricData != null) {
 			    Measurements m = new Measurements(
 			        timestamp,
@@ -45,24 +54,20 @@ public class MeasurementServiceImpl implements MeasurementService {
 			    result.add(m);
 			}
 		} else {
-		    System.out.println("Entering Else, weatherData size" + weatherData.size());
 		    Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
 		    LocalDate localTimestamp = LocalDate.parse(timestamp);
 		    while(iterator.hasNext()) {
 		        Map.Entry<String, Metrics> entry = iterator.next();
-		        System.out.println("Entry Key in loop: " + entry.getKey());
 		        String[] entryKeySplit = entry.getKey().split("(?:-|T)");
 		        
 		        int year = Integer.parseInt(entryKeySplit[0]);
 		        int month = Integer.parseInt(entryKeySplit[1]);
 		        int day = Integer.parseInt(entryKeySplit[2]);
-		        System.out.println("Year : " + year + " month " + month + " day " + day);
 		        
 		        if(year == localTimestamp.getYear() &&
 		        month == localTimestamp.getMonth().getValue() &&
 		        day == localTimestamp.getDayOfMonth()
 		        ) {
-		            System.out.println("Match found");
 		            Measurements m = new Measurements(
 			        entry.getKey(),
 			        entry.getValue().getTemperature(),
@@ -73,7 +78,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 		        }
 		    }
 		}
-		System.out.println("Total results size: " + result.size());
 		WeatherTrackerUtil.sortMeasurementList(result);
 		for (Measurements object: result) {
             System.out.println(object);
@@ -81,11 +85,19 @@ public class MeasurementServiceImpl implements MeasurementService {
         return result;
     }
     
+    /**
+     * This method contains the main implementation of delete measurement feature
+     * it will delete information based on a timestamp
+     */
     @Override
     public Metrics deleteMeasurement(String timestamp) {
     	return weatherData.remove(timestamp);
     }
     
+    /**
+     * This method contains the main implementation of update measurement feature
+     * it will update information related to metrics based on a particular timestamp
+     */
     @Override
     public int updateMeasurement(String timestamp, Metrics metrics) {
     	if(weatherData.containsKey(timestamp)) {
@@ -96,6 +108,10 @@ public class MeasurementServiceImpl implements MeasurementService {
     	}
     }
     
+    /**
+     * This method contains the main implementation of update measurement feature
+     * it will patch information related to metrics based on a particular timestamp
+     */
     @Override
     public int patchMeasurement(String timestamp, Metrics metrics) {
     	if(weatherData.containsKey(timestamp)) {
@@ -118,29 +134,28 @@ public class MeasurementServiceImpl implements MeasurementService {
     	}
     }
     
+    /**
+     * This method contains the main implementation of stats measurement feature
+     * it will retrieve stats information related to metrics between particular timestamps
+     */
     @Override
 	public ArrayList<StatsResponse> getMeasurementStatistics(StatsRequest statsRequest) {
 
 		ArrayList<StatsResponse> statsResponseList = new ArrayList<StatsResponse>();
-//		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
-// 		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
-//		while(iterator.hasNext()) {
-//			Map.Entry<String, Metrics> entry = iterator.next();
-//			LocalDate localTimestamp = LocalDate.parse(entry.getKey());
-//			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
-//					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
-//					&& (localTimestamp.isEqual(statsRequest.getToDateTime())
-//					|| localTimestamp.isAfter(statsRequest.getToDateTime()))) {
-//				weatherDataForStats.put(entry.getKey(),entry.getValue());
-//			}
-//		}
-// 		Iterator it = weatherData.entrySet().iterator();
-//         while (it.hasNext()) {
-//         Map.Entry<String, Metrics> pair = (Map.Entry<String, Metrics>)it.next();
-//         System.out.println("In weatherData" + pair.getKey() + " = " +
-//         pair.getValue().getTemperature() + ", " + pair.getValue().getDewPoint() + ", " + pair.getValue().getPrecipation());
-//         it.remove(); // avoids a ConcurrentModificationException
-//         }
+		Map<String, Metrics> weatherDataForStats = new LinkedHashMap<>();
+ 		Iterator<Map.Entry<String, Metrics>> iterator = weatherData.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Map.Entry<String, Metrics> entry = iterator.next();
+			LocalDateTime localTimestamp = WeatherTrackerUtil.convertStringToLocalDate(entry.getKey());
+			
+			if((localTimestamp.isEqual(statsRequest.getFromDateTime())
+					|| localTimestamp.isAfter(statsRequest.getFromDateTime()))
+					&& (localTimestamp.isBefore(statsRequest.getToDateTime())
+					)) {
+				weatherDataForStats.put(entry.getKey(),entry.getValue());
+			}
+		}
+		
     	for(String metric : statsRequest.getMetric()){
 			for(String stat : statsRequest.getStats()) {
 				StatsResponse statsResp = new StatsResponse();
@@ -148,7 +163,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 				statsResp.setStat(stat);
 				
 				
-				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherData.entrySet().iterator();
+				Iterator<Map.Entry<String, Metrics>> statsIterator = weatherDataForStats.entrySet().iterator();
 				if (stat.equalsIgnoreCase("min")) {
 					while (statsIterator.hasNext()) {
 						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
@@ -162,27 +177,25 @@ public class MeasurementServiceImpl implements MeasurementService {
 								}
 								break;
 							case "dewPoint":
-								System.out.println("StatsEntry1: " + statsEntry.getValue().getDewPoint());
-								System.out.println("StatusResponse1: " + statsResp.getValue());
+
 								if(statsResp.getValue() == 0.0f) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
-								System.out.println("StatsEntry2: " + statsEntry.getValue().getDewPoint());
-								System.out.println("StatusResponse2: " + statsResp.getValue());
-								if (statsEntry.getValue().getDewPoint() != 0.0f && statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
+								if (statsEntry.getValue().getDewPoint() != 0.0f &&
+										statsResp.getValue() > statsEntry.getValue().getDewPoint()) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
-								System.out.println("StatsEntry3: " + statsEntry.getValue().getDewPoint());
-								System.out.println("StatusResponse3: " + statsResp.getValue());
+
 								break;
-							case "precipitation":
-								if(statsResp.getValue() == 0.0f) {
-									statsResp.setValue(statsEntry.getValue().getPrecipation());
-								}
-								if (statsResp.getValue() > statsEntry.getValue().getPrecipation()) {
-									statsResp.setValue(statsEntry.getValue().getPrecipation());
-								}
-								break;
+				 			case "precipitation":
+				 				if(statsResp.getValue() == 0.0f) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				if (statsEntry.getValue().getPrecipation() != 0.0f &&
+				 						statsResp.getValue() > statsEntry.getValue().getPrecipation()) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				break;
 							default:
 								break;
 						}
@@ -193,20 +206,32 @@ public class MeasurementServiceImpl implements MeasurementService {
 						Map.Entry<String, Metrics> statsEntry = statsIterator.next();
 						switch (metric) {
 							case "temperature":
-								if (statsResp.getValue() < statsEntry.getValue().getTemperature()) {
+								if(statsResp.getValue() == 0.0f) {
+									statsResp.setValue(statsEntry.getValue().getTemperature());
+								}
+								if (statsEntry.getValue().getTemperature() != 0.0f &&
+										statsResp.getValue() < statsEntry.getValue().getTemperature()) {
 									statsResp.setValue(statsEntry.getValue().getTemperature());
 								}
 								break;
 							case "dewPoint":
-								if (statsResp.getValue() < statsEntry.getValue().getDewPoint()) {
+								if(statsResp.getValue() == 0.0f) {
+									statsResp.setValue(statsEntry.getValue().getDewPoint());
+								}
+								if (statsEntry.getValue().getDewPoint() != 0.0f &&
+										statsResp.getValue() < statsEntry.getValue().getDewPoint()) {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
 								break;
-							case "precipitation":
-								if (statsResp.getValue() < statsEntry.getValue().getPrecipation()) {
-									statsResp.setValue(statsEntry.getValue().getPrecipation());
-								}
-								break;
+				 			case "precipitation":
+				 				if(statsResp.getValue() == 0.0f) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				if (statsEntry.getValue().getPrecipation() != 0.0f &&
+				 						statsResp.getValue() < statsEntry.getValue().getPrecipation()) {
+				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
+				 				}
+				 				break;
 							default:
 								break;
 						}
@@ -235,12 +260,12 @@ public class MeasurementServiceImpl implements MeasurementService {
 									dewpointCount ++;
 								}
 								break;
-							case "precipitation":
-								if(statsEntry.getValue().getPrecipation() != 0.0f){
-									precipAvg=	precipAvg + statsEntry.getValue().getPrecipation();
-									precipCount ++;
-								}
-								break;
+				 			case "precipitation":
+				 				if(statsEntry.getValue().getPrecipation() != 0.0f){
+				 					precipAvg=	precipAvg + statsEntry.getValue().getPrecipation();
+				 					precipCount ++;
+				 				}
+				 				break;
 							default:
 								break;
 						}
@@ -248,21 +273,24 @@ public class MeasurementServiceImpl implements MeasurementService {
 					switch (metric) {
 						case "temperature":
 							if(temperatureCount!=0) temperatureAvg= temperatureAvg/temperatureCount;
+							temperatureAvg = (float) (Math.round(temperatureAvg * 100.0)/100.0);
 							statsResp.setValue(temperatureAvg);
 							break;
 						case "dewPoint":
 							if(dewpointCount!=0) dewpointAvg= dewpointAvg/dewpointCount;
+							dewpointAvg = (float) (Math.round(dewpointAvg * 100.0)/100.0);
 							statsResp.setValue(dewpointAvg);
 							break;
-						case "precipitation":
-							if(precipCount!=0) precipAvg= precipAvg/precipCount;
-							statsResp.setValue(dewpointAvg);
-							break;
+				 		case "precipitation":
+				 			if(precipCount!=0) precipAvg= precipAvg/precipCount;
+				 			statsResp.setValue(dewpointAvg);
+				 			break;
 					}
 				}
 				statsResponseList.add(statsResp);
 			}
 		}
+		WeatherTrackerUtil.removeItemIfNull(statsResponseList);
     	return statsResponseList;
 	}
 }
