@@ -187,15 +187,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 								}
 
 								break;
-				 			case "precipitation":
-				 				if(statsResp.getValue() == 0.0f) {
-				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				 				}
-				 				if (statsEntry.getValue().getPrecipation() != 0.0f &&
-				 						statsResp.getValue() > statsEntry.getValue().getPrecipation()) {
-				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				 				}
-				 				break;
 							default:
 								break;
 						}
@@ -223,15 +214,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 									statsResp.setValue(statsEntry.getValue().getDewPoint());
 								}
 								break;
-				 			case "precipitation":
-				 				if(statsResp.getValue() == 0.0f) {
-				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				 				}
-				 				if (statsEntry.getValue().getPrecipation() != 0.0f &&
-				 						statsResp.getValue() < statsEntry.getValue().getPrecipation()) {
-				 					statsResp.setValue(statsEntry.getValue().getPrecipation());
-				 				}
-				 				break;
 							default:
 								break;
 						}
@@ -260,12 +242,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 									dewpointCount ++;
 								}
 								break;
-				 			case "precipitation":
-				 				if(statsEntry.getValue().getPrecipation() != 0.0f){
-				 					precipAvg=	precipAvg + statsEntry.getValue().getPrecipation();
-				 					precipCount ++;
-				 				}
-				 				break;
 							default:
 								break;
 						}
@@ -281,10 +257,6 @@ public class MeasurementServiceImpl implements MeasurementService {
 							dewpointAvg = (float) (Math.round(dewpointAvg * 100.0)/100.0);
 							statsResp.setValue(dewpointAvg);
 							break;
-				 		case "precipitation":
-				 			if(precipCount!=0) precipAvg= precipAvg/precipCount;
-				 			statsResp.setValue(dewpointAvg);
-				 			break;
 					}
 				}
 				statsResponseList.add(statsResp);
